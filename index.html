@@ -121,7 +121,16 @@
       padding: 170px 10px 40px 12px;
       scrollbar-width: thin;
       scrollbar-color: #e0d8d2 transparent;
-      display: none; /* JS will show when wide enough */
+      background: transparent;
+      z-index: 100;
+      display: none;
+    }
+    #outline-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      padding-left: 8px;
     }
     #outline-title {
       font-size: 10px;
@@ -129,16 +138,24 @@
       letter-spacing: 0.8px;
       color: #bbb;
       text-transform: uppercase;
-      margin-bottom: 8px;
-      padding-left: 8px;
+    }
+    #outline-close {
+      display: none;
+      background: none;
+      border: none;
+      color: #bbb;
+      font-size: 18px;
+      cursor: pointer;
+      line-height: 1;
+      padding: 2px 4px;
     }
     .outline-h2 {
       display: block;
       font-size: 12px;
       font-weight: 600;
       color: #555;
-      padding: 4px 8px;
-      margin-bottom: 2px;
+      padding: 5px 8px;
+      margin-bottom: 1px;
       border-radius: 6px;
       cursor: pointer;
       line-height: 1.4;
@@ -147,7 +164,7 @@
       text-align: left;
       width: 100%;
     }
-    .outline-h3 {
+    .outline-item {
       display: block;
       font-size: 11px;
       color: #999;
@@ -161,8 +178,35 @@
       text-align: left;
       width: 100%;
     }
-    .outline-h2:hover, .outline-h3:hover { background: #f5efea; color: #d4845a; }
-    .outline-active { color: #d4845a !important; font-weight: 600; }
+    .outline-h2:hover, .outline-item:hover { background: #f5efea; color: #d4845a; }
+    .outline-active { color: #d4845a !important; }
+
+    /* toggle button（小螢幕） */
+    #outline-toggle {
+      display: none;
+      position: fixed;
+      bottom: 22px;
+      right: 18px;
+      width: 44px;
+      height: 44px;
+      background: #d4845a;
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      font-size: 19px;
+      cursor: pointer;
+      z-index: 400;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      align-items: center;
+      justify-content: center;
+    }
+    #outline-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.28);
+      z-index: 300;
+    }
 
     @media (max-width: 500px) {
       .pros-cons { grid-template-columns: 1fr; }
@@ -170,6 +214,19 @@
     }
     @media (min-width: 1080px) {
       #outline { display: block; }
+    }
+    @media (max-width: 1079px) {
+      #outline-toggle { display: flex; }
+      #outline {
+        left: 0 !important;
+        width: min(260px, 78vw);
+        background: #fff;
+        border-right: 1px solid #ece6e0;
+        box-shadow: 4px 0 20px rgba(0,0,0,0.14);
+        padding-top: 24px;
+        z-index: 350;
+      }
+      #outline-close { display: block; }
     }
   </style>
 </head>
@@ -204,8 +261,13 @@
   </div>
 </header>
 
+<div id="outline-backdrop" onclick="closeOutline()"></div>
+<button id="outline-toggle" onclick="openOutline()" title="目錄">☰</button>
 <div id="outline">
-  <div id="outline-title">本頁目錄</div>
+  <div id="outline-header">
+    <div id="outline-title">本頁目錄</div>
+    <button id="outline-close" onclick="closeOutline()">✕</button>
+  </div>
   <div id="outline-list"></div>
 </div>
 
@@ -384,7 +446,7 @@
         <div class="discussion-meta">qooqqooqqqoo · <a href="https://www.threads.com/@qooqqooqqqoo/post/DeiLr-wk6EP" target="_blank">Threads 討論整理</a></div>
       </div>
 
-      <h3>⚠️ 洗奶瓶機 — 避雷警告</h3>
+      <h3 data-outline-item="洗奶瓶機 ⚠️">⚠️ 洗奶瓶機 — 避雷警告</h3>
       <div class="callout warn" data-cat="健康">
         <strong>❌ Giaretti 珈樂堤 CLOUD-2（二代）洗奶瓶機：勸退</strong><br>
         使用約 2 個月後，奶瓶與奶嘴上出現<strong>黑色橡膠融化異物</strong>，寶寶持續哭鬧不肯喝奶（就醫查無異常），才發現是長期喝進橡膠殘留。整批奶嘴與奶瓶報廢。<br><br>
@@ -849,17 +911,56 @@
     const activeTab = document.querySelector('.tab-content.active');
     if (!activeTab) return;
     list.innerHTML = '';
-    activeTab.querySelectorAll('h2, h3').forEach(h => {
-      const btn = document.createElement('button');
-      btn.className = h.tagName === 'H2' ? 'outline-h2' : 'outline-h3';
-      btn.textContent = h.textContent;
-      btn.onclick = () => {
-        h.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        list.querySelectorAll('.outline-active').forEach(el => el.classList.remove('outline-active'));
-        btn.classList.add('outline-active');
-      };
-      list.appendChild(btn);
+
+    activeTab.querySelectorAll('.section').forEach(section => {
+      const h2 = section.querySelector('h2');
+      if (!h2) return;
+
+      // section heading
+      const h2btn = document.createElement('button');
+      h2btn.className = 'outline-h2';
+      h2btn.textContent = h2.textContent;
+      h2btn.onclick = () => scrollToOutline(h2, h2btn, list);
+      list.appendChild(h2btn);
+
+      // item titles within this section
+      section.querySelectorAll('.item-title').forEach(title => {
+        const btn = document.createElement('button');
+        btn.className = 'outline-item';
+        btn.textContent = title.textContent;
+        const target = title.closest('.item') || title;
+        btn.onclick = () => scrollToOutline(target, btn, list);
+        list.appendChild(btn);
+      });
+
+      // special h3 elements marked with data-outline-item
+      section.querySelectorAll('[data-outline-item]').forEach(el => {
+        const btn = document.createElement('button');
+        btn.className = 'outline-item';
+        btn.textContent = el.getAttribute('data-outline-item');
+        btn.onclick = () => scrollToOutline(el, btn, list);
+        list.appendChild(btn);
+      });
     });
+  }
+
+  function scrollToOutline(el, btn, list) {
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    list.querySelectorAll('.outline-active').forEach(e => e.classList.remove('outline-active'));
+    btn.classList.add('outline-active');
+    closeOutline();
+  }
+
+  function openOutline() {
+    document.getElementById('outline').classList.add('open');
+    document.getElementById('outline-backdrop').style.display = 'block';
+    document.getElementById('outline').style.display = 'block';
+  }
+
+  function closeOutline() {
+    if (window.innerWidth >= 1080) return;
+    document.getElementById('outline').style.display = 'none';
+    document.getElementById('outline-backdrop').style.display = 'none';
   }
 
   function setCategory(cat, btn) {

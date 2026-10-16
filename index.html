@@ -930,7 +930,9 @@
   }
 
   function scrollToOutline(el, btn, list) {
-    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const headerH = document.querySelector('header').offsetHeight;
+    const top = el.getBoundingClientRect().top + window.scrollY - headerH - 8;
+    window.scrollTo({ top, behavior: 'smooth' });
     list.querySelectorAll('.outline-active').forEach(e => e.classList.remove('outline-active'));
     btn.classList.add('outline-active');
     closeOutline();

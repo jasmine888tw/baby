@@ -31,8 +31,15 @@
       margin-bottom: 12px;
     }
 
+    .search-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
     .search-wrap {
-      margin-bottom: 12px;
+      flex: 1;
       position: relative;
     }
 
@@ -64,11 +71,43 @@
       line-height: 1;
     }
 
+    .cat-chips {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 10px;
+      scrollbar-width: none;
+    }
+    .cat-chips::-webkit-scrollbar { display: none; }
+
+    .chip {
+      padding: 4px 12px;
+      border-radius: 20px;
+      border: 1px solid #e0d8d2;
+      background: #fff;
+      font-size: 13px;
+      color: #888;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s;
+    }
+
+    .chip:hover { border-color: #d4845a; color: #d4845a; }
+
+    .chip.active {
+      background: #d4845a;
+      border-color: #d4845a;
+      color: #fff;
+      font-weight: 600;
+    }
+
     .tabs {
       display: flex;
       gap: 4px;
       overflow-x: auto;
+      scrollbar-width: none;
     }
+    .tabs::-webkit-scrollbar { display: none; }
 
     .tab-btn {
       padding: 8px 16px;
@@ -99,7 +138,6 @@
     .tab-content { display: none; }
     .tab-content.active { display: block; }
 
-    /* search results panel */
     #search-results { display: none; }
     #search-results.active { display: block; }
 
@@ -124,13 +162,31 @@
       box-shadow: 0 2px 8px rgba(212,132,90,0.12);
     }
 
+    .search-result-meta {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
     .search-result-label {
       font-size: 11px;
       color: #d4845a;
       font-weight: 600;
-      margin-bottom: 6px;
       letter-spacing: 0.3px;
     }
+
+    .cat-badge {
+      font-size: 10px;
+      padding: 1px 7px;
+      border-radius: 10px;
+      font-weight: 600;
+    }
+
+    .cat-badge.用品  { background: #e8f0ff; color: #4a70cc; }
+    .cat-badge.食品  { background: #e8f8e8; color: #4a8a4a; }
+    .cat-badge.托育  { background: #fff3e8; color: #cc7a30; }
+    .cat-badge.健康  { background: #fce8f0; color: #cc4a70; }
 
     .search-result-text {
       font-size: 14px;
@@ -152,7 +208,6 @@
       padding: 40px 0;
     }
 
-    /* sections */
     .section {
       background: #fff;
       border-radius: 12px;
@@ -181,14 +236,25 @@
       display: flex;
       align-items: flex-start;
       gap: 10px;
-      padding: 6px 0;
+      padding: 8px 0;
       border-bottom: 1px solid #f8f4f1;
       border-radius: 4px;
       transition: background 0.3s;
     }
 
     .item:last-child { border-bottom: none; }
-    .item-text { flex: 1; font-size: 14px; color: #3a3a3a; }
+
+    .item-body { flex: 1; min-width: 0; }
+    .item-title { font-size: 14px; color: #3a3a3a; font-weight: 600; }
+    .item-desc  { font-size: 13px; color: #777; margin-top: 2px; }
+
+    .item-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 4px;
+      flex-shrink: 0;
+    }
 
     .source-tag {
       font-size: 11px;
@@ -198,8 +264,6 @@
       padding: 2px 7px;
       white-space: nowrap;
       text-decoration: none;
-      flex-shrink: 0;
-      margin-top: 3px;
     }
 
     .source-tag:hover { color: #888; }
@@ -262,13 +326,12 @@
       padding: 30px 0;
     }
 
-    /* flash highlight when navigating to a result */
     @keyframes flash {
       0%   { background: #ffe0c8; }
-      100% { background: inherit; }
+      100% { background: transparent; }
     }
 
-    .flash { animation: flash 1.2s ease-out; }
+    .flash { animation: flash 1.4s ease-out; }
 
     @media (max-width: 500px) {
       .pros-cons { grid-template-columns: 1fr; }
@@ -279,9 +342,18 @@
 
 <header>
   <h1>寶寶育兒筆記</h1>
-  <div class="search-wrap">
-    <input type="text" id="search-input" placeholder="搜尋關鍵字，例如：保母、發燒…" oninput="doSearch(this.value)">
-    <button class="clear-btn" id="clear-btn" onclick="clearSearch()">✕</button>
+  <div class="search-row">
+    <div class="search-wrap">
+      <input type="text" id="search-input" placeholder="搜尋關鍵字…" oninput="doSearch()">
+      <button class="clear-btn" id="clear-btn" onclick="clearSearch()">✕</button>
+    </div>
+  </div>
+  <div class="cat-chips" id="cat-chips">
+    <button class="chip active" onclick="setCategory('全部', this)">全部</button>
+    <button class="chip" onclick="setCategory('用品', this)">🛍 用品</button>
+    <button class="chip" onclick="setCategory('食品', this)">🍼 食品</button>
+    <button class="chip" onclick="setCategory('托育', this)">👶 托育</button>
+    <button class="chip" onclick="setCategory('健康', this)">❤️ 健康</button>
   </div>
   <div class="tabs" id="tabs">
     <button class="tab-btn active" onclick="switchTab('pre', this)">出生前</button>
@@ -296,14 +368,22 @@
 </header>
 
 <main>
-
   <div id="search-results"></div>
 
   <!-- 出生前 -->
   <div id="tab-pre" class="tab-content active" data-label="出生前">
     <div class="section">
-      <h2>出生前準備</h2>
-      <p class="empty-note">持續更新中，請繼續貼入資訊</p>
+      <h2>用品清單</h2>
+      <div class="item" data-cat="用品">
+        <div class="item-body">
+          <div class="item-title">洗屁屁浴架</div>
+          <div class="item-desc">放在浴盆或洗手台上支撐寶寶身體，方便一個人幫新生兒洗澡。兩款可選，輕鬆收納，圓潤打磨安全。出生即可使用。</div>
+        </div>
+        <div class="item-right">
+          <span class="cat-badge 用品">用品</span>
+          <a class="source-tag" href="https://tw.shp.ee/SP8DkkqY" target="_blank">蝦皮</a>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -359,13 +439,11 @@
   <div id="tab-y1" class="tab-content" data-label="1-2歲">
     <div class="section">
       <h2>托育選擇：保母 vs 托嬰中心</h2>
-
-      <div class="callout">
+      <div class="callout" data-cat="托育">
         <strong>適用時機</strong>
         育嬰留停結束前後（約 1 歲-1 歲半），需要決定正式托育安排
       </div>
-
-      <div class="pros-cons">
+      <div class="pros-cons" data-cat="托育">
         <div class="pros">
           <h4>保母 優勢</h4>
           <ul>
@@ -387,34 +465,40 @@
           </ul>
         </div>
       </div>
-
-      <div class="verdict">
+      <div class="verdict" data-cat="托育">
         <strong>多數家長建議：</strong>沒有後援的雙薪家庭，遇到合得來的保母就優先選保母。公托雖然制度完善，但孩子入托初期容易頻繁生病（有案例長達半年），家長需要有足夠的請假彈性才適合。
       </div>
-
       <h3>關於生病問題</h3>
-      <div class="item">
-        <div class="item-text">托嬰集體環境易交叉感染，常見狀況：發燒、腸病毒、輪狀病毒。孩子發燒就需要立即接回，無後援家庭須預先規劃請假方案。</div>
-        <a class="source-tag" href="https://www.threads.com/@cindya_chen/post/DeirwiSH6KV" target="_blank">Threads @cindya_chen</a>
+      <div class="item" data-cat="健康">
+        <div class="item-body">
+          <div class="item-title">托嬰易交叉感染</div>
+          <div class="item-desc">常見：發燒、腸病毒、輪狀病毒。孩子發燒需立即接回，無後援家庭須預先規劃請假方案。部分孩子入托後生病循環可持續半年。</div>
+        </div>
+        <div class="item-right">
+          <span class="cat-badge 健康">健康</span>
+          <a class="source-tag" href="https://www.threads.com/@cindya_chen/post/DeirwiSH6KV" target="_blank">Threads @cindya_chen</a>
+        </div>
       </div>
-      <div class="item">
-        <div class="item-text">部分孩子入托後生病循環可持續半年，期間可能需要頻繁請假或暫停上班。</div>
-        <a class="source-tag" href="https://www.threads.com/@cindya_chen/post/DeirwiSH6KV" target="_blank">Threads @cindya_chen</a>
-      </div>
-
       <h3>關於社交發展</h3>
-      <div class="item">
-        <div class="item-text">保母家一樣可以有學習與社交，家長可在假日帶孩子外出走走補足群體互動機會。</div>
-        <a class="source-tag" href="https://www.threads.com/@cindya_chen/post/DeirwiSH6KV" target="_blank">Threads @cindya_chen</a>
+      <div class="item" data-cat="托育">
+        <div class="item-body">
+          <div class="item-title">保母也能有社交學習</div>
+          <div class="item-desc">保母家一樣可以有學習與社交，家長可在假日帶孩子外出走走補足群體互動機會。</div>
+        </div>
+        <div class="item-right">
+          <span class="cat-badge 托育">托育</span>
+          <a class="source-tag" href="https://www.threads.com/@cindya_chen/post/DeirwiSH6KV" target="_blank">Threads @cindya_chen</a>
+        </div>
       </div>
-
     </div>
   </div>
 
 </main>
 
 <script>
-  // map tab id → button
+  let activeCat = '全部';
+  let allNodes = null;
+
   function getTabBtn(tabId) {
     return document.querySelector('.tab-btn[onclick*="\''+tabId+'\'"]');
   }
@@ -423,70 +507,94 @@
     document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
     document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
     document.getElementById('tab-' + id).classList.add('active');
-    const b = btn || getTabBtn(id);
-    if (b) b.classList.add('active');
+    (btn || getTabBtn(id)).classList.add('active');
   }
 
-  // collect all searchable nodes with their tab info
+  function setCategory(cat, btn) {
+    activeCat = cat;
+    document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    doSearch();
+  }
+
   function collectNodes() {
     const nodes = [];
+    const selectors = ['.item', '.callout', '.verdict', '.pros-cons'];
     document.querySelectorAll('.tab-content').forEach(tab => {
-      const tabId  = tab.id.replace('tab-', '');
+      const tabId    = tab.id.replace('tab-', '');
       const tabLabel = tab.getAttribute('data-label');
-      const selectors = ['.item-text', '.callout', '.verdict', '.pros li', '.cons li'];
       selectors.forEach(sel => {
         tab.querySelectorAll(sel).forEach(el => {
-          nodes.push({ tabId, tabLabel, el });
+          nodes.push({ tabId, tabLabel, el, cat: el.getAttribute('data-cat') || '' });
         });
       });
     });
     return nodes;
   }
 
-  let allNodes = null;
-
-  function doSearch(q) {
+  function doSearch() {
     if (!allNodes) allNodes = collectNodes();
-
-    const sr = document.getElementById('search-results');
+    const q   = document.getElementById('search-input').value.trim();
+    const sr  = document.getElementById('search-results');
     const clearBtn = document.getElementById('clear-btn');
-    q = q.trim();
+    const isFiltering = q || activeCat !== '全部';
 
-    if (!q) { clearSearch(); return; }
+    clearBtn.style.display = q ? 'block' : 'none';
 
-    clearBtn.style.display = 'block';
+    if (!isFiltering) {
+      sr.classList.remove('active');
+      sr.innerHTML = '';
+      const active = document.querySelector('.tab-btn.active');
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      if (active) {
+        const m = active.getAttribute('onclick').match(/'([^']+)'/);
+        if (m) document.getElementById('tab-' + m[1]).classList.add('active');
+      }
+      return;
+    }
+
     document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
     sr.classList.add('active');
 
     const kw = q.toLowerCase();
-    const matched = allNodes.filter(n => n.el.textContent.toLowerCase().includes(kw));
-
-    // deduplicate by text content
-    const seen = new Set();
-    const unique = matched.filter(n => {
-      const t = n.el.textContent.trim();
-      if (seen.has(t)) return false;
-      seen.add(t); return true;
+    let matched = allNodes.filter(n => {
+      const textOk = !q || n.el.textContent.toLowerCase().includes(kw);
+      const catOk  = activeCat === '全部' || n.cat === activeCat;
+      return textOk && catOk;
     });
 
-    if (unique.length === 0) {
-      sr.innerHTML = '<p class="search-empty">找不到「' + escHtml(q) + '」相關內容</p>';
+    // dedupe by element
+    const seen = new Set();
+    matched = matched.filter(n => { if (seen.has(n.el)) return false; seen.add(n.el); return true; });
+
+    if (matched.length === 0) {
+      const catTip = activeCat !== '全部' ? `「${activeCat}」` : '';
+      sr.innerHTML = '<p class="search-empty">找不到' + catTip + (q ? `「${escHtml(q)}」` : '') + '相關內容</p>';
       return;
     }
 
-    sr.innerHTML = '<p class="search-count">找到 ' + unique.length + ' 筆結果，點擊前往</p>';
+    const label = activeCat !== '全部' && !q
+      ? `${activeCat} — 共 ${matched.length} 筆`
+      : `找到 ${matched.length} 筆，點擊前往`;
 
-    unique.forEach((n, i) => {
+    sr.innerHTML = '<p class="search-count">' + label + '</p>';
+
+    matched.forEach(n => {
       const card = document.createElement('div');
       card.className = 'search-result-item';
 
-      const highlighted = escHtml(n.el.textContent.trim()).replace(
-        new RegExp(escRegex(escHtml(q)), 'gi'),
-        m => '<mark>' + m + '</mark>'
-      );
+      let textContent = n.el.querySelector('.item-title')
+        ? (n.el.querySelector('.item-title').textContent + (n.el.querySelector('.item-desc') ? '　' + n.el.querySelector('.item-desc').textContent : ''))
+        : n.el.textContent.trim().slice(0, 120);
+
+      const highlighted = q
+        ? escHtml(textContent).replace(new RegExp(escRegex(escHtml(q)), 'gi'), m => '<mark>' + m + '</mark>')
+        : escHtml(textContent);
+
+      const catHtml = n.cat ? `<span class="cat-badge ${escHtml(n.cat)}">${escHtml(n.cat)}</span>` : '';
 
       card.innerHTML =
-        '<div class="search-result-label">' + escHtml(n.tabLabel) + '</div>' +
+        '<div class="search-result-meta"><span class="search-result-label">' + escHtml(n.tabLabel) + '</span>' + catHtml + '</div>' +
         '<div class="search-result-text">' + highlighted + '</div>';
 
       card.addEventListener('click', () => goToResult(n));
@@ -495,39 +603,39 @@
   }
 
   function goToResult(n) {
-    clearSearch(false); // clear UI but keep context
+    const q = document.getElementById('search-input').value;
+    document.getElementById('search-results').classList.remove('active');
+    document.getElementById('search-results').innerHTML = '';
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
     switchTab(n.tabId);
-
-    // wait for tab to render, then scroll + flash
     requestAnimationFrame(() => {
       n.el.scrollIntoView({ behavior: 'smooth', block: 'center' });
       n.el.classList.remove('flash');
-      void n.el.offsetWidth; // reflow to restart animation
+      void n.el.offsetWidth;
       n.el.classList.add('flash');
       n.el.addEventListener('animationend', () => n.el.classList.remove('flash'), { once: true });
     });
   }
 
-  function clearSearch(resetInput = true) {
-    if (resetInput) document.getElementById('search-input').value = '';
+  function clearSearch() {
+    document.getElementById('search-input').value = '';
+    activeCat = '全部';
+    document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+    document.querySelector('.chip').classList.add('active');
     document.getElementById('clear-btn').style.display = 'none';
     const sr = document.getElementById('search-results');
     sr.classList.remove('active');
     sr.innerHTML = '';
-
-    // restore active tab
     const active = document.querySelector('.tab-btn.active');
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
     if (active) {
       const m = active.getAttribute('onclick').match(/'([^']+)'/);
       if (m) document.getElementById('tab-' + m[1]).classList.add('active');
-    } else {
-      document.getElementById('tab-pre').classList.add('active');
-      getTabBtn('pre').classList.add('active');
     }
   }
 
   function escHtml(s) {
-    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
   }
 
   function escRegex(s) {

@@ -25,7 +25,39 @@
       font-size: 20px;
       font-weight: 700;
       color: #3a3a3a;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
+    }
+
+    .search-wrap {
+      margin-bottom: 12px;
+      position: relative;
+    }
+
+    .search-wrap input {
+      width: 100%;
+      padding: 8px 36px 8px 14px;
+      border: 1px solid #e0d8d2;
+      border-radius: 8px;
+      font-size: 14px;
+      background: #fdf8f5;
+      color: #3a3a3a;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    .search-wrap input:focus { border-color: #d4845a; background: #fff; }
+
+    .search-wrap .clear-btn {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #bbb;
+      font-size: 16px;
+      display: none;
     }
 
     .tabs {
@@ -63,6 +95,45 @@
 
     .tab-content { display: none; }
     .tab-content.active { display: block; }
+
+    #search-results { display: none; }
+    #search-results.active { display: block; }
+
+    .search-result-item {
+      background: #fff;
+      border: 1px solid #ece6e0;
+      border-radius: 10px;
+      padding: 14px 18px;
+      margin-bottom: 10px;
+    }
+
+    .search-result-label {
+      font-size: 11px;
+      color: #d4845a;
+      font-weight: 600;
+      margin-bottom: 6px;
+      letter-spacing: 0.3px;
+    }
+
+    .search-result-text {
+      font-size: 14px;
+      color: #3a3a3a;
+      line-height: 1.6;
+    }
+
+    .search-result-text mark {
+      background: #ffe0c8;
+      color: #3a3a3a;
+      border-radius: 3px;
+      padding: 0 2px;
+    }
+
+    .search-empty {
+      text-align: center;
+      color: #bbb;
+      font-size: 14px;
+      padding: 30px 0;
+    }
 
     .section {
       background: #fff;
@@ -142,11 +213,7 @@
     .pros h4 { color: #5a8a5a; font-size: 13px; margin-bottom: 8px; }
     .cons h4 { color: #8a5a5a; font-size: 13px; margin-bottom: 8px; }
 
-    .pros ul, .cons ul {
-      list-style: none;
-      padding: 0;
-    }
-
+    .pros ul, .cons ul { list-style: none; padding: 0; }
     .pros li::before { content: "✓ "; color: #5a8a5a; }
     .cons li::before { content: "✗ "; color: #8a5a5a; }
 
@@ -182,22 +249,28 @@
 
 <header>
   <h1>寶寶育兒筆記</h1>
-  <div class="tabs">
-    <button class="tab-btn active" onclick="switchTab('pre')">出生前</button>
-    <button class="tab-btn" onclick="switchTab('m0')">0-1個月</button>
-    <button class="tab-btn" onclick="switchTab('m1')">1-2個月</button>
-    <button class="tab-btn" onclick="switchTab('m2')">2-4個月</button>
-    <button class="tab-btn" onclick="switchTab('m4')">4-6個月</button>
-    <button class="tab-btn" onclick="switchTab('m6')">6-9個月</button>
-    <button class="tab-btn" onclick="switchTab('m9')">9-12個月</button>
-    <button class="tab-btn" onclick="switchTab('y1')">1-2歲</button>
+  <div class="search-wrap">
+    <input type="text" id="search-input" placeholder="搜尋關鍵字，例如：保母、發燒、準備清單…" oninput="doSearch(this.value)">
+    <button class="clear-btn" id="clear-btn" onclick="clearSearch()">✕</button>
+  </div>
+  <div class="tabs" id="tabs">
+    <button class="tab-btn active" onclick="switchTab('pre', this)">出生前</button>
+    <button class="tab-btn" onclick="switchTab('m0', this)">0-1個月</button>
+    <button class="tab-btn" onclick="switchTab('m1', this)">1-2個月</button>
+    <button class="tab-btn" onclick="switchTab('m2', this)">2-4個月</button>
+    <button class="tab-btn" onclick="switchTab('m4', this)">4-6個月</button>
+    <button class="tab-btn" onclick="switchTab('m6', this)">6-9個月</button>
+    <button class="tab-btn" onclick="switchTab('m9', this)">9-12個月</button>
+    <button class="tab-btn" onclick="switchTab('y1', this)">1-2歲</button>
   </div>
 </header>
 
 <main>
 
+  <div id="search-results"></div>
+
   <!-- 出生前 -->
-  <div id="tab-pre" class="tab-content active">
+  <div id="tab-pre" class="tab-content active" data-label="出生前">
     <div class="section">
       <h2>出生前準備</h2>
       <p class="empty-note">持續更新中，請繼續貼入資訊</p>
@@ -205,7 +278,7 @@
   </div>
 
   <!-- 0-1個月 -->
-  <div id="tab-m0" class="tab-content">
+  <div id="tab-m0" class="tab-content" data-label="0-1個月">
     <div class="section">
       <h2>新生兒 0-1 個月</h2>
       <p class="empty-note">持續更新中，請繼續貼入資訊</p>
@@ -213,7 +286,7 @@
   </div>
 
   <!-- 1-2個月 -->
-  <div id="tab-m1" class="tab-content">
+  <div id="tab-m1" class="tab-content" data-label="1-2個月">
     <div class="section">
       <h2>1-2 個月</h2>
       <p class="empty-note">持續更新中，請繼續貼入資訊</p>
@@ -221,7 +294,7 @@
   </div>
 
   <!-- 2-4個月 -->
-  <div id="tab-m2" class="tab-content">
+  <div id="tab-m2" class="tab-content" data-label="2-4個月">
     <div class="section">
       <h2>2-4 個月</h2>
       <p class="empty-note">持續更新中，請繼續貼入資訊</p>
@@ -229,7 +302,7 @@
   </div>
 
   <!-- 4-6個月 -->
-  <div id="tab-m4" class="tab-content">
+  <div id="tab-m4" class="tab-content" data-label="4-6個月">
     <div class="section">
       <h2>4-6 個月</h2>
       <p class="empty-note">持續更新中，請繼續貼入資訊</p>
@@ -237,7 +310,7 @@
   </div>
 
   <!-- 6-9個月 -->
-  <div id="tab-m6" class="tab-content">
+  <div id="tab-m6" class="tab-content" data-label="6-9個月">
     <div class="section">
       <h2>6-9 個月</h2>
       <p class="empty-note">持續更新中，請繼續貼入資訊</p>
@@ -245,7 +318,7 @@
   </div>
 
   <!-- 9-12個月 -->
-  <div id="tab-m9" class="tab-content">
+  <div id="tab-m9" class="tab-content" data-label="9-12個月">
     <div class="section">
       <h2>9-12 個月</h2>
       <p class="empty-note">持續更新中，請繼續貼入資訊</p>
@@ -253,8 +326,7 @@
   </div>
 
   <!-- 1-2歲 -->
-  <div id="tab-y1" class="tab-content">
-
+  <div id="tab-y1" class="tab-content" data-label="1-2歲">
     <div class="section">
       <h2>托育選擇：保母 vs 托嬰中心</h2>
 
@@ -307,17 +379,107 @@
       </div>
 
     </div>
-
   </div>
 
 </main>
 
 <script>
-  function switchTab(id) {
+  function switchTab(id, btn) {
     document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
     document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
     document.getElementById('tab-' + id).classList.add('active');
-    event.target.classList.add('active');
+    if (btn) btn.classList.add('active');
+    clearSearch();
+  }
+
+  function doSearch(q) {
+    const sr = document.getElementById('search-results');
+    const tabs = document.getElementById('tabs');
+    const clearBtn = document.getElementById('clear-btn');
+    q = q.trim();
+
+    if (!q) {
+      clearSearch();
+      return;
+    }
+
+    clearBtn.style.display = 'block';
+
+    // hide tab contents, show results panel
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    sr.classList.add('active');
+
+    const keyword = q.toLowerCase();
+    const results = [];
+
+    document.querySelectorAll('.tab-content').forEach(tab => {
+      const tabLabel = tab.getAttribute('data-label');
+
+      // search in .item-text
+      tab.querySelectorAll('.item-text').forEach(el => {
+        if (el.textContent.toLowerCase().includes(keyword)) {
+          results.push({ label: tabLabel, text: el.textContent });
+        }
+      });
+
+      // search in .callout, .verdict, li
+      ['callout', 'verdict', 'pros li', 'cons li'].forEach(sel => {
+        tab.querySelectorAll(sel).forEach(el => {
+          const t = el.textContent;
+          if (t.toLowerCase().includes(keyword)) {
+            results.push({ label: tabLabel, text: t });
+          }
+        });
+      });
+    });
+
+    // deduplicate
+    const seen = new Set();
+    const unique = results.filter(r => {
+      if (seen.has(r.text)) return false;
+      seen.add(r.text);
+      return true;
+    });
+
+    if (unique.length === 0) {
+      sr.innerHTML = '<p class="search-empty">找不到「' + escHtml(q) + '」相關內容</p>';
+      return;
+    }
+
+    sr.innerHTML = unique.map(r => {
+      const highlighted = escHtml(r.text).replace(
+        new RegExp(escRegex(escHtml(q)), 'gi'),
+        m => '<mark>' + m + '</mark>'
+      );
+      return '<div class="search-result-item">' +
+        '<div class="search-result-label">' + escHtml(r.label) + '</div>' +
+        '<div class="search-result-text">' + highlighted + '</div>' +
+        '</div>';
+    }).join('');
+  }
+
+  function clearSearch() {
+    document.getElementById('search-input').value = '';
+    document.getElementById('clear-btn').style.display = 'none';
+    const sr = document.getElementById('search-results');
+    sr.classList.remove('active');
+    sr.innerHTML = '';
+    // restore active tab
+    const active = document.querySelector('.tab-btn.active');
+    if (active) {
+      const id = active.getAttribute('onclick').match(/'([^']+)'/)[1];
+      document.getElementById('tab-' + id).classList.add('active');
+    } else {
+      document.getElementById('tab-pre').classList.add('active');
+    }
+  }
+
+  function escHtml(s) {
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  function escRegex(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   }
 </script>
 

@@ -988,6 +988,7 @@
     activeTab.querySelectorAll('.section').forEach(section => {
       const h2 = section.querySelector('h2');
       if (!h2) return;
+      if (section.style.display === 'none') return;
 
       // section heading
       const h2btn = document.createElement('button');
@@ -1036,6 +1037,7 @@
     } else {
       filterCurrentTab(); // filter within current tab
     }
+    buildOutline();
   }
 
   // Filter items within the currently active tab

@@ -19,6 +19,9 @@
       background: #fff;
       border-bottom: 1px solid #ece6e0;
       padding: 20px 24px 0;
+      position: sticky;
+      top: 0;
+      z-index: 10;
     }
 
     header h1 {
@@ -58,13 +61,13 @@
       color: #bbb;
       font-size: 16px;
       display: none;
+      line-height: 1;
     }
 
     .tabs {
       display: flex;
       gap: 4px;
       overflow-x: auto;
-      padding-bottom: 0;
     }
 
     .tab-btn {
@@ -96,8 +99,15 @@
     .tab-content { display: none; }
     .tab-content.active { display: block; }
 
+    /* search results panel */
     #search-results { display: none; }
     #search-results.active { display: block; }
+
+    .search-count {
+      font-size: 13px;
+      color: #999;
+      margin-bottom: 12px;
+    }
 
     .search-result-item {
       background: #fff;
@@ -105,6 +115,13 @@
       border-radius: 10px;
       padding: 14px 18px;
       margin-bottom: 10px;
+      cursor: pointer;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    .search-result-item:hover {
+      border-color: #d4845a;
+      box-shadow: 0 2px 8px rgba(212,132,90,0.12);
     }
 
     .search-result-label {
@@ -132,9 +149,10 @@
       text-align: center;
       color: #bbb;
       font-size: 14px;
-      padding: 30px 0;
+      padding: 40px 0;
     }
 
+    /* sections */
     .section {
       background: #fff;
       border-radius: 12px;
@@ -165,10 +183,11 @@
       gap: 10px;
       padding: 6px 0;
       border-bottom: 1px solid #f8f4f1;
+      border-radius: 4px;
+      transition: background 0.3s;
     }
 
     .item:last-child { border-bottom: none; }
-
     .item-text { flex: 1; font-size: 14px; color: #3a3a3a; }
 
     .source-tag {
@@ -193,6 +212,7 @@
       margin: 10px 0;
       font-size: 14px;
       color: #4a3a30;
+      transition: background 0.3s;
     }
 
     .callout strong { display: block; margin-bottom: 4px; }
@@ -208,6 +228,7 @@
       background: #f8f4f1;
       border-radius: 8px;
       padding: 12px 14px;
+      transition: background 0.3s;
     }
 
     .pros h4 { color: #5a8a5a; font-size: 13px; margin-bottom: 8px; }
@@ -231,6 +252,7 @@
       margin-top: 12px;
       font-size: 14px;
       color: #3a5a3a;
+      transition: background 0.3s;
     }
 
     .empty-note {
@@ -239,6 +261,14 @@
       text-align: center;
       padding: 30px 0;
     }
+
+    /* flash highlight when navigating to a result */
+    @keyframes flash {
+      0%   { background: #ffe0c8; }
+      100% { background: inherit; }
+    }
+
+    .flash { animation: flash 1.2s ease-out; }
 
     @media (max-width: 500px) {
       .pros-cons { grid-template-columns: 1fr; }
@@ -250,7 +280,7 @@
 <header>
   <h1>寶寶育兒筆記</h1>
   <div class="search-wrap">
-    <input type="text" id="search-input" placeholder="搜尋關鍵字，例如：保母、發燒、準備清單…" oninput="doSearch(this.value)">
+    <input type="text" id="search-input" placeholder="搜尋關鍵字，例如：保母、發燒…" oninput="doSearch(this.value)">
     <button class="clear-btn" id="clear-btn" onclick="clearSearch()">✕</button>
   </div>
   <div class="tabs" id="tabs">
@@ -384,61 +414,59 @@
 </main>
 
 <script>
+  // map tab id → button
+  function getTabBtn(tabId) {
+    return document.querySelector('.tab-btn[onclick*="\''+tabId+'\'"]');
+  }
+
   function switchTab(id, btn) {
     document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
     document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
     document.getElementById('tab-' + id).classList.add('active');
-    if (btn) btn.classList.add('active');
-    clearSearch();
+    const b = btn || getTabBtn(id);
+    if (b) b.classList.add('active');
   }
 
-  function doSearch(q) {
-    const sr = document.getElementById('search-results');
-    const tabs = document.getElementById('tabs');
-    const clearBtn = document.getElementById('clear-btn');
-    q = q.trim();
-
-    if (!q) {
-      clearSearch();
-      return;
-    }
-
-    clearBtn.style.display = 'block';
-
-    // hide tab contents, show results panel
-    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-    sr.classList.add('active');
-
-    const keyword = q.toLowerCase();
-    const results = [];
-
+  // collect all searchable nodes with their tab info
+  function collectNodes() {
+    const nodes = [];
     document.querySelectorAll('.tab-content').forEach(tab => {
+      const tabId  = tab.id.replace('tab-', '');
       const tabLabel = tab.getAttribute('data-label');
-
-      // search in .item-text
-      tab.querySelectorAll('.item-text').forEach(el => {
-        if (el.textContent.toLowerCase().includes(keyword)) {
-          results.push({ label: tabLabel, text: el.textContent });
-        }
-      });
-
-      // search in .callout, .verdict, li
-      ['callout', 'verdict', 'pros li', 'cons li'].forEach(sel => {
+      const selectors = ['.item-text', '.callout', '.verdict', '.pros li', '.cons li'];
+      selectors.forEach(sel => {
         tab.querySelectorAll(sel).forEach(el => {
-          const t = el.textContent;
-          if (t.toLowerCase().includes(keyword)) {
-            results.push({ label: tabLabel, text: t });
-          }
+          nodes.push({ tabId, tabLabel, el });
         });
       });
     });
+    return nodes;
+  }
 
-    // deduplicate
+  let allNodes = null;
+
+  function doSearch(q) {
+    if (!allNodes) allNodes = collectNodes();
+
+    const sr = document.getElementById('search-results');
+    const clearBtn = document.getElementById('clear-btn');
+    q = q.trim();
+
+    if (!q) { clearSearch(); return; }
+
+    clearBtn.style.display = 'block';
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    sr.classList.add('active');
+
+    const kw = q.toLowerCase();
+    const matched = allNodes.filter(n => n.el.textContent.toLowerCase().includes(kw));
+
+    // deduplicate by text content
     const seen = new Set();
-    const unique = results.filter(r => {
-      if (seen.has(r.text)) return false;
-      seen.add(r.text);
-      return true;
+    const unique = matched.filter(n => {
+      const t = n.el.textContent.trim();
+      if (seen.has(t)) return false;
+      seen.add(t); return true;
     });
 
     if (unique.length === 0) {
@@ -446,31 +474,55 @@
       return;
     }
 
-    sr.innerHTML = unique.map(r => {
-      const highlighted = escHtml(r.text).replace(
+    sr.innerHTML = '<p class="search-count">找到 ' + unique.length + ' 筆結果，點擊前往</p>';
+
+    unique.forEach((n, i) => {
+      const card = document.createElement('div');
+      card.className = 'search-result-item';
+
+      const highlighted = escHtml(n.el.textContent.trim()).replace(
         new RegExp(escRegex(escHtml(q)), 'gi'),
         m => '<mark>' + m + '</mark>'
       );
-      return '<div class="search-result-item">' +
-        '<div class="search-result-label">' + escHtml(r.label) + '</div>' +
-        '<div class="search-result-text">' + highlighted + '</div>' +
-        '</div>';
-    }).join('');
+
+      card.innerHTML =
+        '<div class="search-result-label">' + escHtml(n.tabLabel) + '</div>' +
+        '<div class="search-result-text">' + highlighted + '</div>';
+
+      card.addEventListener('click', () => goToResult(n));
+      sr.appendChild(card);
+    });
   }
 
-  function clearSearch() {
-    document.getElementById('search-input').value = '';
+  function goToResult(n) {
+    clearSearch(false); // clear UI but keep context
+    switchTab(n.tabId);
+
+    // wait for tab to render, then scroll + flash
+    requestAnimationFrame(() => {
+      n.el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      n.el.classList.remove('flash');
+      void n.el.offsetWidth; // reflow to restart animation
+      n.el.classList.add('flash');
+      n.el.addEventListener('animationend', () => n.el.classList.remove('flash'), { once: true });
+    });
+  }
+
+  function clearSearch(resetInput = true) {
+    if (resetInput) document.getElementById('search-input').value = '';
     document.getElementById('clear-btn').style.display = 'none';
     const sr = document.getElementById('search-results');
     sr.classList.remove('active');
     sr.innerHTML = '';
+
     // restore active tab
     const active = document.querySelector('.tab-btn.active');
     if (active) {
-      const id = active.getAttribute('onclick').match(/'([^']+)'/)[1];
-      document.getElementById('tab-' + id).classList.add('active');
+      const m = active.getAttribute('onclick').match(/'([^']+)'/);
+      if (m) document.getElementById('tab-' + m[1]).classList.add('active');
     } else {
       document.getElementById('tab-pre').classList.add('active');
+      getTabBtn('pre').classList.add('active');
     }
   }
 

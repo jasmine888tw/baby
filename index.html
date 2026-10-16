@@ -24,24 +24,11 @@
       z-index: 10;
     }
 
-    header h1 {
-      font-size: 20px;
-      font-weight: 700;
-      color: #3a3a3a;
-      margin-bottom: 12px;
-    }
+    header h1 { font-size: 20px; font-weight: 700; color: #3a3a3a; margin-bottom: 12px; }
 
-    .search-row {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-      margin-bottom: 10px;
-    }
+    .search-row { display: flex; gap: 8px; align-items: center; margin-bottom: 10px; }
 
-    .search-wrap {
-      flex: 1;
-      position: relative;
-    }
+    .search-wrap { flex: 1; position: relative; }
 
     .search-wrap input {
       width: 100%;
@@ -58,82 +45,31 @@
     .search-wrap input:focus { border-color: #d4845a; background: #fff; }
 
     .search-wrap .clear-btn {
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: #bbb;
-      font-size: 16px;
-      display: none;
-      line-height: 1;
+      position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+      background: none; border: none; cursor: pointer; color: #bbb; font-size: 16px; display: none; line-height: 1;
     }
 
-    .cat-chips {
-      display: flex;
-      gap: 6px;
-      overflow-x: auto;
-      padding-bottom: 10px;
-      scrollbar-width: none;
-    }
+    .cat-chips { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 10px; scrollbar-width: none; }
     .cat-chips::-webkit-scrollbar { display: none; }
 
     .chip {
-      padding: 4px 12px;
-      border-radius: 20px;
-      border: 1px solid #e0d8d2;
-      background: #fff;
-      font-size: 13px;
-      color: #888;
-      cursor: pointer;
-      white-space: nowrap;
-      transition: all 0.15s;
+      padding: 4px 12px; border-radius: 20px; border: 1px solid #e0d8d2;
+      background: #fff; font-size: 13px; color: #888; cursor: pointer; white-space: nowrap; transition: all 0.15s;
     }
-
     .chip:hover { border-color: #d4845a; color: #d4845a; }
+    .chip.active { background: #d4845a; border-color: #d4845a; color: #fff; font-weight: 600; }
 
-    .chip.active {
-      background: #d4845a;
-      border-color: #d4845a;
-      color: #fff;
-      font-weight: 600;
-    }
-
-    .tabs {
-      display: flex;
-      gap: 4px;
-      overflow-x: auto;
-      scrollbar-width: none;
-    }
+    .tabs { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
     .tabs::-webkit-scrollbar { display: none; }
 
     .tab-btn {
-      padding: 8px 16px;
-      border: none;
-      background: none;
-      cursor: pointer;
-      font-size: 14px;
-      color: #888;
-      border-bottom: 3px solid transparent;
-      white-space: nowrap;
-      transition: color 0.15s;
+      padding: 8px 16px; border: none; background: none; cursor: pointer;
+      font-size: 14px; color: #888; border-bottom: 3px solid transparent; white-space: nowrap; transition: color 0.15s;
     }
-
     .tab-btn:hover { color: #555; }
+    .tab-btn.active { color: #d4845a; border-bottom-color: #d4845a; font-weight: 600; }
 
-    .tab-btn.active {
-      color: #d4845a;
-      border-bottom-color: #d4845a;
-      font-weight: 600;
-    }
-
-    main {
-      max-width: 760px;
-      margin: 0 auto;
-      padding: 28px 20px;
-    }
+    main { max-width: 760px; margin: 0 auto; padding: 28px 20px; }
 
     .tab-content { display: none; }
     .tab-content.active { display: block; }
@@ -141,204 +77,125 @@
     #search-results { display: none; }
     #search-results.active { display: block; }
 
-    .search-count {
-      font-size: 13px;
-      color: #999;
-      margin-bottom: 12px;
-    }
+    .search-count { font-size: 13px; color: #999; margin-bottom: 12px; }
 
     .search-result-item {
-      background: #fff;
-      border: 1px solid #ece6e0;
-      border-radius: 10px;
-      padding: 14px 18px;
-      margin-bottom: 10px;
-      cursor: pointer;
-      transition: border-color 0.15s, box-shadow 0.15s;
+      background: #fff; border: 1px solid #ece6e0; border-radius: 10px;
+      padding: 14px 18px; margin-bottom: 10px; cursor: pointer; transition: border-color 0.15s, box-shadow 0.15s;
     }
+    .search-result-item:hover { border-color: #d4845a; box-shadow: 0 2px 8px rgba(212,132,90,0.12); }
 
-    .search-result-item:hover {
-      border-color: #d4845a;
-      box-shadow: 0 2px 8px rgba(212,132,90,0.12);
-    }
+    .search-result-meta { display: flex; gap: 6px; align-items: center; margin-bottom: 6px; }
+    .search-result-label { font-size: 11px; color: #d4845a; font-weight: 600; letter-spacing: 0.3px; }
 
-    .search-result-meta {
-      display: flex;
-      gap: 6px;
-      align-items: center;
-      margin-bottom: 6px;
-    }
+    .cat-badge { font-size: 10px; padding: 1px 7px; border-radius: 10px; font-weight: 600; }
+    .cat-badge.用品 { background: #e8f0ff; color: #4a70cc; }
+    .cat-badge.食品 { background: #e8f8e8; color: #4a8a4a; }
+    .cat-badge.托育 { background: #fff3e8; color: #cc7a30; }
+    .cat-badge.健康 { background: #fce8f0; color: #cc4a70; }
 
-    .search-result-label {
-      font-size: 11px;
-      color: #d4845a;
-      font-weight: 600;
-      letter-spacing: 0.3px;
-    }
+    .search-result-text { font-size: 14px; color: #3a3a3a; line-height: 1.6; }
+    .search-result-text mark { background: #ffe0c8; color: #3a3a3a; border-radius: 3px; padding: 0 2px; }
 
-    .cat-badge {
-      font-size: 10px;
-      padding: 1px 7px;
-      border-radius: 10px;
-      font-weight: 600;
-    }
+    .search-empty { text-align: center; color: #bbb; font-size: 14px; padding: 40px 0; }
 
-    .cat-badge.用品  { background: #e8f0ff; color: #4a70cc; }
-    .cat-badge.食品  { background: #e8f8e8; color: #4a8a4a; }
-    .cat-badge.托育  { background: #fff3e8; color: #cc7a30; }
-    .cat-badge.健康  { background: #fce8f0; color: #cc4a70; }
-
-    .search-result-text {
-      font-size: 14px;
-      color: #3a3a3a;
-      line-height: 1.6;
-    }
-
-    .search-result-text mark {
-      background: #ffe0c8;
-      color: #3a3a3a;
-      border-radius: 3px;
-      padding: 0 2px;
-    }
-
-    .search-empty {
-      text-align: center;
-      color: #bbb;
-      font-size: 14px;
-      padding: 40px 0;
-    }
-
-    .section {
-      background: #fff;
-      border-radius: 12px;
-      padding: 20px 24px;
-      margin-bottom: 16px;
-      border: 1px solid #ece6e0;
-    }
+    /* section */
+    .section { background: #fff; border-radius: 12px; padding: 20px 24px; margin-bottom: 16px; border: 1px solid #ece6e0; }
 
     .section h2 {
-      font-size: 16px;
-      font-weight: 700;
-      color: #3a3a3a;
-      margin-bottom: 14px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid #f0ebe6;
+      font-size: 16px; font-weight: 700; color: #3a3a3a;
+      margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid #f0ebe6;
     }
+    .section h3 { font-size: 14px; font-weight: 600; color: #666; margin: 16px 0 8px; }
 
-    .section h3 {
-      font-size: 14px;
-      font-weight: 600;
-      color: #666;
-      margin: 14px 0 8px;
-    }
-
+    /* item card */
     .item {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      padding: 8px 0;
-      border-bottom: 1px solid #f8f4f1;
-      border-radius: 4px;
-      transition: background 0.3s;
+      display: flex; gap: 12px; padding: 12px 0;
+      border-bottom: 1px solid #f8f4f1; border-radius: 4px; transition: background 0.3s;
+    }
+    .item:last-child { border-bottom: none; }
+
+    .item-img {
+      width: 72px; height: 72px; border-radius: 8px; object-fit: cover;
+      flex-shrink: 0; background: #f0ebe6; cursor: pointer;
     }
 
-    .item:last-child { border-bottom: none; }
+    .item-img-placeholder {
+      width: 72px; height: 72px; border-radius: 8px; flex-shrink: 0;
+      background: #f0ebe6; display: flex; align-items: center; justify-content: center;
+      font-size: 24px; color: #ccc;
+    }
 
     .item-body { flex: 1; min-width: 0; }
     .item-title { font-size: 14px; color: #3a3a3a; font-weight: 600; }
-    .item-desc  { font-size: 13px; color: #777; margin-top: 2px; }
+    .item-desc { font-size: 13px; color: #777; margin-top: 3px; line-height: 1.5; }
+    .item-period { font-size: 12px; color: #d4845a; margin-top: 4px; font-weight: 600; }
 
-    .item-right {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 4px;
-      flex-shrink: 0;
-    }
+    .item-right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex-shrink: 0; }
 
     .source-tag {
-      font-size: 11px;
-      color: #aaa;
-      background: #f5f0ec;
-      border-radius: 4px;
-      padding: 2px 7px;
-      white-space: nowrap;
-      text-decoration: none;
+      font-size: 11px; color: #aaa; background: #f5f0ec; border-radius: 4px;
+      padding: 2px 7px; white-space: nowrap; text-decoration: none;
     }
-
     .source-tag:hover { color: #888; }
 
-    .callout {
-      background: #fef3ec;
-      border-left: 3px solid #d4845a;
-      border-radius: 0 8px 8px 0;
-      padding: 12px 16px;
-      margin: 10px 0;
-      font-size: 14px;
-      color: #4a3a30;
-      transition: background 0.3s;
+    /* discussion cards */
+    .discussion {
+      background: #f8f4f1; border-radius: 8px; padding: 12px 14px; margin-bottom: 8px;
     }
+    .discussion-quote { font-size: 13px; color: #555; line-height: 1.6; }
+    .discussion-meta { font-size: 11px; color: #aaa; margin-top: 6px; }
+    .discussion-meta a { color: #aaa; text-decoration: none; }
+    .discussion-meta a:hover { color: #888; }
 
+    /* callout / verdict */
+    .callout {
+      background: #fef3ec; border-left: 3px solid #d4845a; border-radius: 0 8px 8px 0;
+      padding: 12px 16px; margin: 10px 0; font-size: 14px; color: #4a3a30; transition: background 0.3s;
+    }
     .callout strong { display: block; margin-bottom: 4px; }
 
-    .pros-cons {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-top: 10px;
-    }
+    .pros-cons { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px; }
 
-    .pros, .cons {
-      background: #f8f4f1;
-      border-radius: 8px;
-      padding: 12px 14px;
-      transition: background 0.3s;
-    }
-
+    .pros, .cons { background: #f8f4f1; border-radius: 8px; padding: 12px 14px; transition: background 0.3s; }
     .pros h4 { color: #5a8a5a; font-size: 13px; margin-bottom: 8px; }
     .cons h4 { color: #8a5a5a; font-size: 13px; margin-bottom: 8px; }
-
     .pros ul, .cons ul { list-style: none; padding: 0; }
     .pros li::before { content: "✓ "; color: #5a8a5a; }
     .cons li::before { content: "✗ "; color: #8a5a5a; }
+    .pros li, .cons li { font-size: 13px; color: #555; margin-bottom: 4px; line-height: 1.5; }
 
-    .pros li, .cons li {
-      font-size: 13px;
-      color: #555;
-      margin-bottom: 4px;
-      line-height: 1.5;
-    }
+    .verdict { background: #e8f0e8; border-radius: 8px; padding: 12px 16px; margin-top: 12px; font-size: 14px; color: #3a5a3a; transition: background 0.3s; }
 
-    .verdict {
-      background: #e8f0e8;
-      border-radius: 8px;
-      padding: 12px 16px;
-      margin-top: 12px;
-      font-size: 14px;
-      color: #3a5a3a;
-      transition: background 0.3s;
-    }
+    /* usage period table */
+    .period-table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 10px 0; }
+    .period-table th { background: #f8f4f1; padding: 7px 10px; text-align: left; color: #555; font-weight: 600; border-bottom: 1px solid #ece6e0; }
+    .period-table td { padding: 7px 10px; border-bottom: 1px solid #f5f0ec; color: #3a3a3a; vertical-align: top; }
+    .period-table tr:last-child td { border-bottom: none; }
 
-    .empty-note {
-      color: #bbb;
-      font-size: 14px;
-      text-align: center;
-      padding: 30px 0;
-    }
+    /* lightbox */
+    .lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 100; align-items: center; justify-content: center; }
+    .lightbox.open { display: flex; }
+    .lightbox img { max-width: 90vw; max-height: 90vh; border-radius: 8px; }
+    .lightbox-close { position: absolute; top: 20px; right: 24px; color: #fff; font-size: 28px; cursor: pointer; background: none; border: none; }
 
-    @keyframes flash {
-      0%   { background: #ffe0c8; }
-      100% { background: transparent; }
-    }
+    .empty-note { color: #bbb; font-size: 14px; text-align: center; padding: 30px 0; }
 
+    @keyframes flash { 0% { background: #ffe0c8; } 100% { background: transparent; } }
     .flash { animation: flash 1.4s ease-out; }
 
     @media (max-width: 500px) {
       .pros-cons { grid-template-columns: 1fr; }
+      .item-img, .item-img-placeholder { width: 56px; height: 56px; }
     }
   </style>
 </head>
 <body>
+
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close">✕</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
 
 <header>
   <h1>寶寶育兒筆記</h1>
@@ -348,14 +205,14 @@
       <button class="clear-btn" id="clear-btn" onclick="clearSearch()">✕</button>
     </div>
   </div>
-  <div class="cat-chips" id="cat-chips">
+  <div class="cat-chips">
     <button class="chip active" onclick="setCategory('全部', this)">全部</button>
     <button class="chip" onclick="setCategory('用品', this)">🛍 用品</button>
     <button class="chip" onclick="setCategory('食品', this)">🍼 食品</button>
     <button class="chip" onclick="setCategory('托育', this)">👶 托育</button>
     <button class="chip" onclick="setCategory('健康', this)">❤️ 健康</button>
   </div>
-  <div class="tabs" id="tabs">
+  <div class="tabs">
     <button class="tab-btn active" onclick="switchTab('pre', this)">出生前</button>
     <button class="tab-btn" onclick="switchTab('m0', this)">0-1個月</button>
     <button class="tab-btn" onclick="switchTab('m1', this)">1-2個月</button>
@@ -374,14 +231,17 @@
   <div id="tab-pre" class="tab-content active" data-label="出生前">
     <div class="section">
       <h2>用品清單</h2>
+
       <div class="item" data-cat="用品">
+        <img class="item-img" src="images/bath-support.png" alt="洗屁屁浴架" onclick="openLightbox(this.src)">
         <div class="item-body">
           <div class="item-title">洗屁屁浴架</div>
-          <div class="item-desc">放在浴盆或洗手台上支撐寶寶身體，方便一個人幫新生兒洗澡。兩款可選，輕鬆收納，圓潤打磨安全。出生即可使用。</div>
+          <div class="item-period">📅 出生即用，可用至 1.5–2 歲（體重 9kg 內）</div>
+          <div class="item-desc">放在浴盆或洗手台上支撐寶寶，解放一隻手沖水，大幅降低媽媽手風險。兩款可選，輕鬆收納，圓潤打磨安全。</div>
         </div>
         <div class="item-right">
           <span class="cat-badge 用品">用品</span>
-          <a class="source-tag" href="https://tw.shp.ee/SP8DkkqY" target="_blank">蝦皮</a>
+          <a class="source-tag" href="https://tw.shp.ee/SP8DkkqY" target="_blank">蝦皮購買</a>
         </div>
       </div>
     </div>
@@ -390,8 +250,47 @@
   <!-- 0-1個月 -->
   <div id="tab-m0" class="tab-content" data-label="0-1個月">
     <div class="section">
-      <h2>新生兒 0-1 個月</h2>
-      <p class="empty-note">持續更新中，請繼續貼入資訊</p>
+      <h2>洗澡</h2>
+
+      <div class="item" data-cat="用品">
+        <img class="item-img" src="images/bath-support.png" alt="洗屁屁浴架" onclick="openLightbox(this.src)">
+        <div class="item-body">
+          <div class="item-title">洗屁屁浴架</div>
+          <div class="item-period">📅 新生兒即可開始使用</div>
+          <div class="item-desc">新生兒期頸部無力，浴架可穩定支撐頭部和身體，大人需全程在旁陪同，不可離開。</div>
+        </div>
+        <div class="item-right">
+          <span class="cat-badge 用品">用品</span>
+          <a class="source-tag" href="https://tw.shp.ee/SP8DkkqY" target="_blank">蝦皮購買</a>
+        </div>
+      </div>
+
+      <h3>使用月齡參考</h3>
+      <table class="period-table">
+        <tr><th>月齡</th><th>使用狀況</th></tr>
+        <tr><td>出生–2個月</td><td>可用，需全程陪同，頸部較軟需注意支撐角度</td></tr>
+        <tr><td>3–6個月</td><td>頸部稍硬，最穩定好用的主力期</td></tr>
+        <tr><td>6個月–1歲</td><td>官方建議上限，但體重未超過 9kg 可繼續用</td></tr>
+        <tr><td>1–1.5歲</td><td>多數家長仍在用，能站立後自然退役</td></tr>
+      </table>
+
+      <h3>PTT 媽媽社群討論</h3>
+
+      <div class="discussion" data-cat="用品">
+        <div class="discussion-quote">「單手洗屁屁，解放另一隻手沖水，大幅降低媽媽手。寶寶被穩定支撐，大人衣服也不容易弄濕。特別適合無後援、一個人帶小孩的家庭。」</div>
+        <div class="discussion-meta">推薦原因 · <a href="https://www.ptt.cc/bbs/BabyMother/M.1688200367.A.166.html" target="_blank">PTT BabyMother</a></div>
+      </div>
+
+      <div class="discussion" data-cat="用品">
+        <div class="discussion-quote">「下方矽膠吸盤易發霉，需定期清潔。要挑對洗手台尺寸，不是所有洗手台都合用。大人務必全程在旁，不可離開。」</div>
+        <div class="discussion-meta">注意事項 · <a href="https://www.ptt.cc/bbs/BabyMother/M.1709193285.A.F3C.html" target="_blank">PTT BabyMother</a></div>
+      </div>
+
+      <div class="discussion" data-cat="用品">
+        <div class="discussion-quote">「放洗手台時要確認穩固，避免傾覆。部分款式底部開口設計沖洗才徹底，一般浴架後側較難洗乾淨。過渡期用品，1.5–2 歲後基本退役。」</div>
+        <div class="discussion-meta">缺點提醒 · <a href="https://www.ptt.cc/bbs/BabyMother/M.1686759321.A.BA6.html" target="_blank">PTT BabyMother</a></div>
+      </div>
+
     </div>
   </div>
 
@@ -470,24 +369,26 @@
       </div>
       <h3>關於生病問題</h3>
       <div class="item" data-cat="健康">
+        <div class="item-img-placeholder">🏥</div>
         <div class="item-body">
           <div class="item-title">托嬰易交叉感染</div>
           <div class="item-desc">常見：發燒、腸病毒、輪狀病毒。孩子發燒需立即接回，無後援家庭須預先規劃請假方案。部分孩子入托後生病循環可持續半年。</div>
         </div>
         <div class="item-right">
           <span class="cat-badge 健康">健康</span>
-          <a class="source-tag" href="https://www.threads.com/@cindya_chen/post/DeirwiSH6KV" target="_blank">Threads @cindya_chen</a>
+          <a class="source-tag" href="https://www.threads.com/@cindya_chen/post/DeirwiSH6KV" target="_blank">Threads</a>
         </div>
       </div>
       <h3>關於社交發展</h3>
       <div class="item" data-cat="托育">
+        <div class="item-img-placeholder">👨‍👩‍👧</div>
         <div class="item-body">
           <div class="item-title">保母也能有社交學習</div>
           <div class="item-desc">保母家一樣可以有學習與社交，家長可在假日帶孩子外出走走補足群體互動機會。</div>
         </div>
         <div class="item-right">
           <span class="cat-badge 托育">托育</span>
-          <a class="source-tag" href="https://www.threads.com/@cindya_chen/post/DeirwiSH6KV" target="_blank">Threads @cindya_chen</a>
+          <a class="source-tag" href="https://www.threads.com/@cindya_chen/post/DeirwiSH6KV" target="_blank">Threads</a>
         </div>
       </div>
     </div>
@@ -498,6 +399,15 @@
 <script>
   let activeCat = '全部';
   let allNodes = null;
+
+  function openLightbox(src) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox').classList.add('open');
+  }
+
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+  }
 
   function getTabBtn(tabId) {
     return document.querySelector('.tab-btn[onclick*="\''+tabId+'\'"]');
@@ -519,7 +429,7 @@
 
   function collectNodes() {
     const nodes = [];
-    const selectors = ['.item', '.callout', '.verdict', '.pros-cons'];
+    const selectors = ['.item', '.callout', '.verdict', '.pros-cons', '.discussion'];
     document.querySelectorAll('.tab-content').forEach(tab => {
       const tabId    = tab.id.replace('tab-', '');
       const tabLabel = tab.getAttribute('data-label');
@@ -534,22 +444,16 @@
 
   function doSearch() {
     if (!allNodes) allNodes = collectNodes();
-    const q   = document.getElementById('search-input').value.trim();
-    const sr  = document.getElementById('search-results');
-    const clearBtn = document.getElementById('clear-btn');
+    const q  = document.getElementById('search-input').value.trim();
+    const sr = document.getElementById('search-results');
+    document.getElementById('clear-btn').style.display = q ? 'block' : 'none';
+
     const isFiltering = q || activeCat !== '全部';
-
-    clearBtn.style.display = q ? 'block' : 'none';
-
     if (!isFiltering) {
-      sr.classList.remove('active');
-      sr.innerHTML = '';
+      sr.classList.remove('active'); sr.innerHTML = '';
       const active = document.querySelector('.tab-btn.active');
       document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-      if (active) {
-        const m = active.getAttribute('onclick').match(/'([^']+)'/);
-        if (m) document.getElementById('tab-' + m[1]).classList.add('active');
-      }
+      if (active) { const m = active.getAttribute('onclick').match(/'([^']+)'/); if (m) document.getElementById('tab-'+m[1]).classList.add('active'); }
       return;
     }
 
@@ -557,45 +461,49 @@
     sr.classList.add('active');
 
     const kw = q.toLowerCase();
-    let matched = allNodes.filter(n => {
+    const seen = new Set();
+    const matched = allNodes.filter(n => {
+      if (seen.has(n.el)) return false;
       const textOk = !q || n.el.textContent.toLowerCase().includes(kw);
       const catOk  = activeCat === '全部' || n.cat === activeCat;
-      return textOk && catOk;
+      if (textOk && catOk) { seen.add(n.el); return true; }
+      return false;
     });
 
-    // dedupe by element
-    const seen = new Set();
-    matched = matched.filter(n => { if (seen.has(n.el)) return false; seen.add(n.el); return true; });
-
     if (matched.length === 0) {
-      const catTip = activeCat !== '全部' ? `「${activeCat}」` : '';
-      sr.innerHTML = '<p class="search-empty">找不到' + catTip + (q ? `「${escHtml(q)}」` : '') + '相關內容</p>';
+      sr.innerHTML = '<p class="search-empty">找不到' + (activeCat !== '全部' ? `「${escHtml(activeCat)}」` : '') + (q ? `「${escHtml(q)}」` : '') + '相關內容</p>';
       return;
     }
 
-    const label = activeCat !== '全部' && !q
-      ? `${activeCat} — 共 ${matched.length} 筆`
-      : `找到 ${matched.length} 筆，點擊前往`;
-
+    const label = activeCat !== '全部' && !q ? `${activeCat} — 共 ${matched.length} 筆` : `找到 ${matched.length} 筆，點擊前往`;
     sr.innerHTML = '<p class="search-count">' + label + '</p>';
 
     matched.forEach(n => {
       const card = document.createElement('div');
       card.className = 'search-result-item';
 
-      let textContent = n.el.querySelector('.item-title')
-        ? (n.el.querySelector('.item-title').textContent + (n.el.querySelector('.item-desc') ? '　' + n.el.querySelector('.item-desc').textContent : ''))
-        : n.el.textContent.trim().slice(0, 120);
+      // get display text
+      const titleEl = n.el.querySelector('.item-title, .discussion-quote');
+      const descEl  = n.el.querySelector('.item-desc, .discussion-meta');
+      let text = titleEl ? titleEl.textContent : n.el.textContent.trim().slice(0, 120);
+      if (descEl && titleEl) text += '　' + descEl.textContent.slice(0, 60);
 
       const highlighted = q
-        ? escHtml(textContent).replace(new RegExp(escRegex(escHtml(q)), 'gi'), m => '<mark>' + m + '</mark>')
-        : escHtml(textContent);
+        ? escHtml(text).replace(new RegExp(escRegex(escHtml(q)), 'gi'), m => '<mark>'+m+'</mark>')
+        : escHtml(text);
+
+      // thumbnail
+      const imgEl = n.el.querySelector('.item-img');
+      const imgHtml = imgEl
+        ? `<img src="${escHtml(imgEl.src)}" style="width:44px;height:44px;border-radius:6px;object-fit:cover;flex-shrink:0;">`
+        : '';
 
       const catHtml = n.cat ? `<span class="cat-badge ${escHtml(n.cat)}">${escHtml(n.cat)}</span>` : '';
 
       card.innerHTML =
-        '<div class="search-result-meta"><span class="search-result-label">' + escHtml(n.tabLabel) + '</span>' + catHtml + '</div>' +
-        '<div class="search-result-text">' + highlighted + '</div>';
+        '<div class="search-result-meta"><span class="search-result-label">'+escHtml(n.tabLabel)+'</span>'+catHtml+'</div>' +
+        '<div style="display:flex;gap:10px;align-items:flex-start">' + imgHtml +
+        '<div class="search-result-text">'+highlighted+'</div></div>';
 
       card.addEventListener('click', () => goToResult(n));
       sr.appendChild(card);
@@ -603,15 +511,13 @@
   }
 
   function goToResult(n) {
-    const q = document.getElementById('search-input').value;
     document.getElementById('search-results').classList.remove('active');
     document.getElementById('search-results').innerHTML = '';
     document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
     switchTab(n.tabId);
     requestAnimationFrame(() => {
       n.el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      n.el.classList.remove('flash');
-      void n.el.offsetWidth;
+      n.el.classList.remove('flash'); void n.el.offsetWidth;
       n.el.classList.add('flash');
       n.el.addEventListener('animationend', () => n.el.classList.remove('flash'), { once: true });
     });
@@ -624,23 +530,14 @@
     document.querySelector('.chip').classList.add('active');
     document.getElementById('clear-btn').style.display = 'none';
     const sr = document.getElementById('search-results');
-    sr.classList.remove('active');
-    sr.innerHTML = '';
+    sr.classList.remove('active'); sr.innerHTML = '';
     const active = document.querySelector('.tab-btn.active');
     document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-    if (active) {
-      const m = active.getAttribute('onclick').match(/'([^']+)'/);
-      if (m) document.getElementById('tab-' + m[1]).classList.add('active');
-    }
+    if (active) { const m = active.getAttribute('onclick').match(/'([^']+)'/); if (m) document.getElementById('tab-'+m[1]).classList.add('active'); }
   }
 
-  function escHtml(s) {
-    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-  }
-
-  function escRegex(s) {
-    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  }
+  function escHtml(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function escRegex(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
 </script>
 
 </body>

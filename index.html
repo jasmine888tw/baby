@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>寶寶育兒筆記</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #fdf8f5;
+      color: #2d2d2d;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    header {
+      background: #fff;
+      border-bottom: 1px solid #ece6e0;
+      padding: 20px 24px 0;
+    }
+
+    header h1 {
+      font-size: 20px;
+      font-weight: 700;
+      color: #3a3a3a;
+      margin-bottom: 16px;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 4px;
+      overflow-x: auto;
+      padding-bottom: 0;
+    }
+
+    .tab-btn {
+      padding: 8px 16px;
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-size: 14px;
+      color: #888;
+      border-bottom: 3px solid transparent;
+      white-space: nowrap;
+      transition: color 0.15s;
+    }
+
+    .tab-btn:hover { color: #555; }
+
+    .tab-btn.active {
+      color: #d4845a;
+      border-bottom-color: #d4845a;
+      font-weight: 600;
+    }
+
+    main {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 28px 20px;
+    }
+
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    .section {
+      background: #fff;
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 16px;
+      border: 1px solid #ece6e0;
+    }
+
+    .section h2 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #3a3a3a;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #f0ebe6;
+    }
+
+    .section h3 {
+      font-size: 14px;
+      font-weight: 600;
+      color: #666;
+      margin: 14px 0 8px;
+    }
+
+    .item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 6px 0;
+      border-bottom: 1px solid #f8f4f1;
+    }
+
+    .item:last-child { border-bottom: none; }
+
+    .item-text { flex: 1; font-size: 14px; color: #3a3a3a; }
+
+    .source-tag {
+      font-size: 11px;
+      color: #aaa;
+      background: #f5f0ec;
+      border-radius: 4px;
+      padding: 2px 7px;
+      white-space: nowrap;
+      text-decoration: none;
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+
+    .source-tag:hover { color: #888; }
+
+    .callout {
+      background: #fef3ec;
+      border-left: 3px solid #d4845a;
+      border-radius: 0 8px 8px 0;
+      padding: 12px 16px;
+      margin: 10px 0;
+      font-size: 14px;
+      color: #4a3a30;
+    }
+
+    .callout strong { display: block; margin-bottom: 4px; }
+
+    .pros-cons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .pros, .cons {
+      background: #f8f4f1;
+      border-radius: 8px;
+      padding: 12px 14px;
+    }
+
+    .pros h4 { color: #5a8a5a; font-size: 13px; margin-bottom: 8px; }
+    .cons h4 { color: #8a5a5a; font-size: 13px; margin-bottom: 8px; }
+
+    .pros ul, .cons ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .pros li::before { content: "✓ "; color: #5a8a5a; }
+    .cons li::before { content: "✗ "; color: #8a5a5a; }
+
+    .pros li, .cons li {
+      font-size: 13px;
+      color: #555;
+      margin-bottom: 4px;
+      line-height: 1.5;
+    }
+
+    .verdict {
+      background: #e8f0e8;
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin-top: 12px;
+      font-size: 14px;
+      color: #3a5a3a;
+    }
+
+    .empty-note {
+      color: #bbb;
+      font-size: 14px;
+      text-align: center;
+      padding: 30px 0;
+    }
+
+    @media (max-width: 500px) {
+      .pros-cons { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>寶寶育兒筆記</h1>
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('pre')">出生前</button>
+    <button class="tab-btn" onclick="switchTab('m0')">0-1個月</button>
+    <button class="tab-btn" onclick="switchTab('m1')">1-2個月</button>
+    <button class="tab-btn" onclick="switchTab('m2')">2-4個月</button>
+    <button class="tab-btn" onclick="switchTab('m4')">4-6個月</button>
+    <button class="tab-btn" onclick="switchTab('m6')">6-9個月</button>
+    <button class="tab-btn" onclick="switchTab('m9')">9-12個月</button>
+    <button class="tab-btn" onclick="switchTab('y1')">1-2歲</button>
+  </div>
+</header>
+
+<main>
+
+  <!-- 出生前 -->
+  <div id="tab-pre" class="tab-content active">
+    <div class="section">
+      <h2>出生前準備</h2>
+      <p class="empty-note">持續更新中，請繼續貼入資訊</p>
+    </div>
+  </div>
+
+  <!-- 0-1個月 -->
+  <div id="tab-m0" class="tab-content">
+    <div class="section">
+      <h2>新生兒 0-1 個月</h2>
+      <p class="empty-note">持續更新中，請繼續貼入資訊</p>
+    </div>
+  </div>
+
+  <!-- 1-2個月 -->
+  <div id="tab-m1" class="tab-content">
+    <div class="section">
+      <h2>1-2 個月</h2>
+      <p class="empty-note">持續更新中，請繼續貼入資訊</p>
+    </div>
+  </div>
+
+  <!-- 2-4個月 -->
+  <div id="tab-m2" class="tab-content">
+    <div class="section">
+      <h2>2-4 個月</h2>
+      <p class="empty-note">持續更新中，請繼續貼入資訊</p>
+    </div>
+  </div>
+
+  <!-- 4-6個月 -->
+  <div id="tab-m4" class="tab-content">
+    <div class="section">
+      <h2>4-6 個月</h2>
+      <p class="empty-note">持續更新中，請繼續貼入資訊</p>
+    </div>
+  </div>
+
+  <!-- 6-9個月 -->
+  <div id="tab-m6" class="tab-content">
+    <div class="section">
+      <h2>6-9 個月</h2>
+      <p class="empty-note">持續更新中，請繼續貼入資訊</p>
+    </div>
+  </div>
+
+  <!-- 9-12個月 -->
+  <div id="tab-m9" class="tab-content">
+    <div class="section">
+      <h2>9-12 個月</h2>
+      <p class="empty-note">持續更新中，請繼續貼入資訊</p>
+    </div>
+  </div>
+
+  <!-- 1-2歲 -->
+  <div id="tab-y1" class="tab-content">
+
+    <div class="section">
+      <h2>托育選擇：保母 vs 托嬰中心</h2>
+
+      <div class="callout">
+        <strong>適用時機</strong>
+        育嬰留停結束前後（約 1 歲-1 歲半），需要決定正式托育安排
+      </div>
+
+      <div class="pros-cons">
+        <div class="pros">
+          <h4>保母 優勢</h4>
+          <ul>
+            <li>彈性高：可延托、臨時加托</li>
+            <li>師生比佳（通常遠優於 1:4）</li>
+            <li>孩子不易生病</li>
+            <li>遇到緊急狀況可配合</li>
+            <li>孩子在熟悉環境，不需重新適應</li>
+          </ul>
+        </div>
+        <div class="cons">
+          <h4>公托 / 托嬰中心 注意</h4>
+          <ul>
+            <li>師生比固定 1:4，老師較忙</li>
+            <li>集體環境易傳染：發燒、腸病毒需立即接回</li>
+            <li>通常不延托，時間固定</li>
+            <li>孩子需要重新適應期</li>
+            <li>無後援的家庭請假壓力大</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="verdict">
+        <strong>多數家長建議：</strong>沒有後援的雙薪家庭，遇到合得來的保母就優先選保母。公托雖然制度完善，但孩子入托初期容易頻繁生病（有案例長達半年），家長需要有足夠的請假彈性才適合。
+      </div>
+
+      <h3>關於生病問題</h3>
+      <div class="item">
+        <div class="item-text">托嬰集體環境易交叉感染，常見狀況：發燒、腸病毒、輪狀病毒。孩子發燒就需要立即接回，無後援家庭須預先規劃請假方案。</div>
+        <a class="source-tag" href="https://www.threads.com/@cindya_chen/post/DeirwiSH6KV" target="_blank">Threads @cindya_chen</a>
+      </div>
+      <div class="item">
+        <div class="item-text">部分孩子入托後生病循環可持續半年，期間可能需要頻繁請假或暫停上班。</div>
+        <a class="source-tag" href="https://www.threads.com/@cindya_chen/post/DeirwiSH6KV" target="_blank">Threads @cindya_chen</a>
+      </div>
+
+      <h3>關於社交發展</h3>
+      <div class="item">
+        <div class="item-text">保母家一樣可以有學習與社交，家長可在假日帶孩子外出走走補足群體互動機會。</div>
+        <a class="source-tag" href="https://www.threads.com/@cindya_chen/post/DeirwiSH6KV" target="_blank">Threads @cindya_chen</a>
+      </div>
+
+    </div>
+
+  </div>
+
+</main>
+
+<script>
+  function switchTab(id) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    event.target.classList.add('active');
+  }
+</script>
+
+</body>
+</html>

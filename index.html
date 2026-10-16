@@ -27,23 +27,12 @@
     header h1 { font-size: 20px; font-weight: 700; color: #3a3a3a; margin-bottom: 12px; }
 
     .search-row { display: flex; gap: 8px; align-items: center; margin-bottom: 10px; }
-
     .search-wrap { flex: 1; position: relative; }
-
     .search-wrap input {
-      width: 100%;
-      padding: 8px 36px 8px 14px;
-      border: 1px solid #e0d8d2;
-      border-radius: 8px;
-      font-size: 14px;
-      background: #fdf8f5;
-      color: #3a3a3a;
-      outline: none;
-      transition: border-color 0.15s;
+      width: 100%; padding: 8px 36px 8px 14px; border: 1px solid #e0d8d2;
+      border-radius: 8px; font-size: 14px; background: #fdf8f5; color: #3a3a3a; outline: none; transition: border-color 0.15s;
     }
-
     .search-wrap input:focus { border-color: #d4845a; background: #fff; }
-
     .search-wrap .clear-btn {
       position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
       background: none; border: none; cursor: pointer; color: #bbb; font-size: 16px; display: none; line-height: 1;
@@ -51,42 +40,45 @@
 
     .cat-chips { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 10px; scrollbar-width: none; }
     .cat-chips::-webkit-scrollbar { display: none; }
-
-    .chip {
-      padding: 4px 12px; border-radius: 20px; border: 1px solid #e0d8d2;
-      background: #fff; font-size: 13px; color: #888; cursor: pointer; white-space: nowrap; transition: all 0.15s;
-    }
+    .chip { padding: 4px 12px; border-radius: 20px; border: 1px solid #e0d8d2; background: #fff; font-size: 13px; color: #888; cursor: pointer; white-space: nowrap; transition: all 0.15s; }
     .chip:hover { border-color: #d4845a; color: #d4845a; }
     .chip.active { background: #d4845a; border-color: #d4845a; color: #fff; font-weight: 600; }
 
     .tabs { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
     .tabs::-webkit-scrollbar { display: none; }
-
-    .tab-btn {
-      padding: 8px 16px; border: none; background: none; cursor: pointer;
-      font-size: 14px; color: #888; border-bottom: 3px solid transparent; white-space: nowrap; transition: color 0.15s;
-    }
+    .tab-btn { padding: 8px 16px; border: none; background: none; cursor: pointer; font-size: 14px; color: #888; border-bottom: 3px solid transparent; white-space: nowrap; transition: color 0.15s; }
     .tab-btn:hover { color: #555; }
     .tab-btn.active { color: #d4845a; border-bottom-color: #d4845a; font-weight: 600; }
 
     main { max-width: 760px; margin: 0 auto; padding: 28px 20px; }
-
     .tab-content { display: none; }
     .tab-content.active { display: block; }
-
     #search-results { display: none; }
     #search-results.active { display: block; }
 
     .search-count { font-size: 13px; color: #999; margin-bottom: 12px; }
-
-    .search-result-item {
-      background: #fff; border: 1px solid #ece6e0; border-radius: 10px;
-      padding: 14px 18px; margin-bottom: 10px; cursor: pointer; transition: border-color 0.15s, box-shadow 0.15s;
-    }
+    .search-result-item { background: #fff; border: 1px solid #ece6e0; border-radius: 10px; padding: 14px 18px; margin-bottom: 10px; cursor: pointer; transition: border-color 0.15s, box-shadow 0.15s; }
     .search-result-item:hover { border-color: #d4845a; box-shadow: 0 2px 8px rgba(212,132,90,0.12); }
-
     .search-result-meta { display: flex; gap: 6px; align-items: center; margin-bottom: 6px; }
     .search-result-label { font-size: 11px; color: #d4845a; font-weight: 600; letter-spacing: 0.3px; }
+    .search-result-text { font-size: 14px; color: #3a3a3a; line-height: 1.6; }
+    .search-result-text mark { background: #ffe0c8; color: #3a3a3a; border-radius: 3px; padding: 0 2px; }
+    .search-empty { text-align: center; color: #bbb; font-size: 14px; padding: 40px 0; }
+
+    .section { background: #fff; border-radius: 12px; padding: 20px 24px; margin-bottom: 16px; border: 1px solid #ece6e0; }
+    .section h2 { font-size: 16px; font-weight: 700; color: #3a3a3a; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid #f0ebe6; }
+    .section h3 { font-size: 14px; font-weight: 600; color: #666; margin: 16px 0 8px; }
+
+    .item { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid #f8f4f1; border-radius: 4px; transition: background 0.3s; }
+    .item:last-child { border-bottom: none; }
+    .item-img { width: 72px; height: 72px; border-radius: 8px; object-fit: cover; flex-shrink: 0; background: #f0ebe6; cursor: pointer; }
+    .item-img-placeholder { width: 72px; height: 72px; border-radius: 8px; flex-shrink: 0; background: #f0ebe6; display: flex; align-items: center; justify-content: center; font-size: 24px; }
+    .item-body { flex: 1; min-width: 0; }
+    .item-title { font-size: 14px; color: #3a3a3a; font-weight: 600; }
+    .item-desc { font-size: 13px; color: #777; margin-top: 3px; line-height: 1.5; }
+    .item-period { font-size: 12px; color: #d4845a; margin-top: 4px; font-weight: 600; }
+    .item-warn { font-size: 12px; color: #c0392b; margin-top: 4px; font-weight: 600; }
+    .item-right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex-shrink: 0; }
 
     .cat-badge { font-size: 10px; padding: 1px 7px; border-radius: 10px; font-weight: 600; }
     .cat-badge.用品 { background: #e8f0ff; color: #4a70cc; }
@@ -94,69 +86,17 @@
     .cat-badge.托育 { background: #fff3e8; color: #cc7a30; }
     .cat-badge.健康 { background: #fce8f0; color: #cc4a70; }
 
-    .search-result-text { font-size: 14px; color: #3a3a3a; line-height: 1.6; }
-    .search-result-text mark { background: #ffe0c8; color: #3a3a3a; border-radius: 3px; padding: 0 2px; }
-
-    .search-empty { text-align: center; color: #bbb; font-size: 14px; padding: 40px 0; }
-
-    /* section */
-    .section { background: #fff; border-radius: 12px; padding: 20px 24px; margin-bottom: 16px; border: 1px solid #ece6e0; }
-
-    .section h2 {
-      font-size: 16px; font-weight: 700; color: #3a3a3a;
-      margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid #f0ebe6;
-    }
-    .section h3 { font-size: 14px; font-weight: 600; color: #666; margin: 16px 0 8px; }
-
-    /* item card */
-    .item {
-      display: flex; gap: 12px; padding: 12px 0;
-      border-bottom: 1px solid #f8f4f1; border-radius: 4px; transition: background 0.3s;
-    }
-    .item:last-child { border-bottom: none; }
-
-    .item-img {
-      width: 72px; height: 72px; border-radius: 8px; object-fit: cover;
-      flex-shrink: 0; background: #f0ebe6; cursor: pointer;
-    }
-
-    .item-img-placeholder {
-      width: 72px; height: 72px; border-radius: 8px; flex-shrink: 0;
-      background: #f0ebe6; display: flex; align-items: center; justify-content: center;
-      font-size: 24px; color: #ccc;
-    }
-
-    .item-body { flex: 1; min-width: 0; }
-    .item-title { font-size: 14px; color: #3a3a3a; font-weight: 600; }
-    .item-desc { font-size: 13px; color: #777; margin-top: 3px; line-height: 1.5; }
-    .item-period { font-size: 12px; color: #d4845a; margin-top: 4px; font-weight: 600; }
-
-    .item-right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex-shrink: 0; }
-
-    .source-tag {
-      font-size: 11px; color: #aaa; background: #f5f0ec; border-radius: 4px;
-      padding: 2px 7px; white-space: nowrap; text-decoration: none;
-    }
+    .source-tag { font-size: 11px; color: #aaa; background: #f5f0ec; border-radius: 4px; padding: 2px 7px; white-space: nowrap; text-decoration: none; }
     .source-tag:hover { color: #888; }
 
-    /* discussion cards */
-    .discussion {
-      background: #f8f4f1; border-radius: 8px; padding: 12px 14px; margin-bottom: 8px;
-    }
-    .discussion-quote { font-size: 13px; color: #555; line-height: 1.6; }
-    .discussion-meta { font-size: 11px; color: #aaa; margin-top: 6px; }
-    .discussion-meta a { color: #aaa; text-decoration: none; }
-    .discussion-meta a:hover { color: #888; }
-
-    /* callout / verdict */
-    .callout {
-      background: #fef3ec; border-left: 3px solid #d4845a; border-radius: 0 8px 8px 0;
-      padding: 12px 16px; margin: 10px 0; font-size: 14px; color: #4a3a30; transition: background 0.3s;
-    }
+    /* callout variants */
+    .callout { background: #fef3ec; border-left: 3px solid #d4845a; border-radius: 0 8px 8px 0; padding: 12px 16px; margin: 10px 0; font-size: 14px; color: #4a3a30; transition: background 0.3s; }
     .callout strong { display: block; margin-bottom: 4px; }
+    .callout.warn { background: #fff0f0; border-left-color: #c0392b; color: #6a2020; }
+    .callout.info { background: #eef6ff; border-left-color: #3a78c4; color: #1a3a5a; }
+    .callout.tip  { background: #efffef; border-left-color: #3a9a3a; color: #1a4a1a; }
 
     .pros-cons { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px; }
-
     .pros, .cons { background: #f8f4f1; border-radius: 8px; padding: 12px 14px; transition: background 0.3s; }
     .pros h4 { color: #5a8a5a; font-size: 13px; margin-bottom: 8px; }
     .cons h4 { color: #8a5a5a; font-size: 13px; margin-bottom: 8px; }
@@ -167,13 +107,19 @@
 
     .verdict { background: #e8f0e8; border-radius: 8px; padding: 12px 16px; margin-top: 12px; font-size: 14px; color: #3a5a3a; transition: background 0.3s; }
 
-    /* usage period table */
     .period-table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 10px 0; }
     .period-table th { background: #f8f4f1; padding: 7px 10px; text-align: left; color: #555; font-weight: 600; border-bottom: 1px solid #ece6e0; }
     .period-table td { padding: 7px 10px; border-bottom: 1px solid #f5f0ec; color: #3a3a3a; vertical-align: top; }
     .period-table tr:last-child td { border-bottom: none; }
+    .period-table .ok   { color: #3a8a3a; font-weight: 600; }
+    .period-table .warn { color: #c0392b; font-weight: 600; }
 
-    /* lightbox */
+    .discussion { background: #f8f4f1; border-radius: 8px; padding: 12px 14px; margin-bottom: 8px; }
+    .discussion-quote { font-size: 13px; color: #555; line-height: 1.6; }
+    .discussion-meta { font-size: 11px; color: #aaa; margin-top: 6px; }
+    .discussion-meta a { color: #aaa; text-decoration: none; }
+    .discussion-meta a:hover { color: #888; }
+
     .lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 100; align-items: center; justify-content: center; }
     .lightbox.open { display: flex; }
     .lightbox img { max-width: 90vw; max-height: 90vh; border-radius: 8px; }
@@ -236,28 +182,42 @@
         <img class="item-img" src="images/bath-support.png" alt="洗屁屁浴架" onclick="openLightbox(this.src)">
         <div class="item-body">
           <div class="item-title">洗屁屁浴架</div>
-          <div class="item-period">📅 出生即用，可用至 1.5–2 歲（體重 9kg 內）</div>
-          <div class="item-desc">放在浴盆或洗手台上支撐寶寶，解放一隻手沖水，大幅降低媽媽手風險。兩款可選，輕鬆收納，圓潤打磨安全。</div>
+          <div class="item-period">📅 出生即用，可用至 1.5–2 歲</div>
+          <div class="item-desc">放在浴盆或洗手台上支撐寶寶，解放一隻手沖水，降低媽媽手風險。</div>
         </div>
         <div class="item-right">
           <span class="cat-badge 用品">用品</span>
           <a class="source-tag" href="https://tw.shp.ee/SP8DkkqY" target="_blank">蝦皮購買</a>
         </div>
       </div>
+
+      <div class="item" data-cat="用品">
+        <img class="item-img" src="images/head-pillow.png" alt="嬰兒定型枕" onclick="openLightbox(this.src)">
+        <div class="item-body">
+          <div class="item-title">防偏頭交叉定型枕</div>
+          <div class="item-warn">⚠️ 6個月前不建議使用（窒息風險）</div>
+          <div class="item-desc">若需購買，建議等 6 個月後再用。選厚度 1–2cm、高透氣材質。6個月前以「趴趴時間」替代。</div>
+        </div>
+        <div class="item-right">
+          <span class="cat-badge 用品">用品</span>
+          <a class="source-tag" href="https://shopee.tw/product/12958008/41323060972" target="_blank">蝦皮購買</a>
+        </div>
+      </div>
+
     </div>
   </div>
 
   <!-- 0-1個月 -->
   <div id="tab-m0" class="tab-content" data-label="0-1個月">
+
     <div class="section">
       <h2>洗澡</h2>
-
       <div class="item" data-cat="用品">
         <img class="item-img" src="images/bath-support.png" alt="洗屁屁浴架" onclick="openLightbox(this.src)">
         <div class="item-body">
           <div class="item-title">洗屁屁浴架</div>
-          <div class="item-period">📅 新生兒即可開始使用</div>
-          <div class="item-desc">新生兒期頸部無力，浴架可穩定支撐頭部和身體，大人需全程在旁陪同，不可離開。</div>
+          <div class="item-period">📅 新生兒即可使用</div>
+          <div class="item-desc">新生兒期頸部無力，浴架可穩定支撐。大人必須全程在旁，不可離開。</div>
         </div>
         <div class="item-right">
           <span class="cat-badge 用品">用品</span>
@@ -268,30 +228,47 @@
       <h3>使用月齡參考</h3>
       <table class="period-table">
         <tr><th>月齡</th><th>使用狀況</th></tr>
-        <tr><td>出生–2個月</td><td>可用，需全程陪同，頸部較軟需注意支撐角度</td></tr>
+        <tr><td>出生–2個月</td><td>可用，全程陪同，注意頸部支撐角度</td></tr>
         <tr><td>3–6個月</td><td>頸部稍硬，最穩定好用的主力期</td></tr>
-        <tr><td>6個月–1歲</td><td>官方建議上限，但體重未超過 9kg 可繼續用</td></tr>
-        <tr><td>1–1.5歲</td><td>多數家長仍在用，能站立後自然退役</td></tr>
+        <tr><td>6個月–1歲</td><td>體重 9kg 內可繼續使用</td></tr>
+        <tr><td>1–1.5歲</td><td>能站立後自然退役</td></tr>
       </table>
 
-      <h3>PTT 媽媽社群討論</h3>
-
+      <h3>PTT 社群討論</h3>
       <div class="discussion" data-cat="用品">
-        <div class="discussion-quote">「單手洗屁屁，解放另一隻手沖水，大幅降低媽媽手。寶寶被穩定支撐，大人衣服也不容易弄濕。特別適合無後援、一個人帶小孩的家庭。」</div>
+        <div class="discussion-quote">「單手洗屁屁，解放另一隻手沖水，大幅降低媽媽手。特別適合無後援、一個人帶小孩的家庭。」</div>
         <div class="discussion-meta">推薦原因 · <a href="https://www.ptt.cc/bbs/BabyMother/M.1688200367.A.166.html" target="_blank">PTT BabyMother</a></div>
       </div>
-
       <div class="discussion" data-cat="用品">
-        <div class="discussion-quote">「下方矽膠吸盤易發霉，需定期清潔。要挑對洗手台尺寸，不是所有洗手台都合用。大人務必全程在旁，不可離開。」</div>
+        <div class="discussion-quote">「下方矽膠吸盤易發霉，需定期清潔。要挑對洗手台尺寸，不是所有洗手台都合用。大人務必全程在旁。」</div>
         <div class="discussion-meta">注意事項 · <a href="https://www.ptt.cc/bbs/BabyMother/M.1709193285.A.F3C.html" target="_blank">PTT BabyMother</a></div>
       </div>
+    </div>
 
-      <div class="discussion" data-cat="用品">
-        <div class="discussion-quote">「放洗手台時要確認穩固，避免傾覆。部分款式底部開口設計沖洗才徹底，一般浴架後側較難洗乾淨。過渡期用品，1.5–2 歲後基本退役。」</div>
-        <div class="discussion-meta">缺點提醒 · <a href="https://www.ptt.cc/bbs/BabyMother/M.1686759321.A.BA6.html" target="_blank">PTT BabyMother</a></div>
+    <div class="section">
+      <h2>頭型與睡姿</h2>
+
+      <div class="callout warn" data-cat="健康">
+        <strong>⚠️ 醫生警告：6個月前請勿使用定型枕</strong>
+        新生兒科醫生與台灣衛福部均不建議。4個月前頸肌未成熟，厚枕可能折到氣管；窒息時大腦無法發出自救指令，有致命風險。
       </div>
 
+      <div class="callout tip" data-cat="健康">
+        <strong>✅ 醫生推薦替代方法（0–3個月黃金期）</strong>
+        清醒時多「趴趴時間」· 交替左右方向餵奶 · 睡覺時交替頭朝方向。效果比定型枕更好且無風險。
+      </div>
+
+      <h3>社群討論</h3>
+      <div class="discussion" data-cat="健康">
+        <div class="discussion-quote">「PTT 新生兒科醫生公開批評：不肖廠商透過錯誤觀念誘導購買，提高小孩死亡率。頭型主要由遺傳決定，前囟門 1–1.5 歲才完全閉合，人工塑形效果存疑。」</div>
+        <div class="discussion-meta">醫生立場 · <a href="https://heho.com.tw/archives/41904" target="_blank">Heho 健康</a></div>
+      </div>
+      <div class="discussion" data-cat="健康">
+        <div class="discussion-quote">「台北慈濟醫院新生兒科主任趙露露：6個月前避免使用枕頭；4個月前肌肉未成熟，厚枕頭會妨礙自救。台灣衛福部：嬰兒枕對防側翻、顧頭型皆無實證依據。」</div>
+        <div class="discussion-meta">專家建議 · <a href="https://heho.com.tw/archives/41904" target="_blank">Heho 健康</a></div>
+      </div>
     </div>
+
   </div>
 
   <!-- 1-2個月 -->
@@ -321,8 +298,35 @@
   <!-- 6-9個月 -->
   <div id="tab-m6" class="tab-content" data-label="6-9個月">
     <div class="section">
-      <h2>6-9 個月</h2>
-      <p class="empty-note">持續更新中，請繼續貼入資訊</p>
+      <h2>頭型 — 定型枕（可考慮開始使用）</h2>
+
+      <div class="callout info" data-cat="用品">
+        <strong>📋 6個月後若仍有偏頭疑慮，可考慮使用定型枕</strong>
+        此時顱骨發育較穩定，但仍建議選薄枕（1–2cm）、高透氣材質，並觀察寶寶睡眠狀況。
+      </div>
+
+      <div class="item" data-cat="用品">
+        <img class="item-img" src="images/head-pillow.png" alt="嬰兒定型枕" onclick="openLightbox(this.src)">
+        <div class="item-body">
+          <div class="item-title">防偏頭交叉定型枕</div>
+          <div class="item-period">📅 建議 6 個月後再使用</div>
+          <div class="item-desc">中間凹陷設計防止頭部側滑；45° 擋枕不捂口鼻。選厚度 1–2cm，絕不超過 3cm。</div>
+        </div>
+        <div class="item-right">
+          <span class="cat-badge 用品">用品</span>
+          <a class="source-tag" href="https://shopee.tw/product/12958008/41323060972" target="_blank">蝦皮購買</a>
+        </div>
+      </div>
+
+      <h3>挑選重點</h3>
+      <table class="period-table">
+        <tr><th>項目</th><th>建議</th></tr>
+        <tr><td>厚度</td><td class="ok">1–2cm，絕不超過 3cm</td></tr>
+        <tr><td>材質</td><td class="ok">天然乳膠、天絲苎麻等高透氣材質</td></tr>
+        <tr><td>形狀</td><td class="ok">中間凹陷，頭部不易側滑</td></tr>
+        <tr><td>台灣推薦</td><td>西班牙 Mimos 3D、Babymoov、BeBeBus 蝴蝶定型枕</td></tr>
+      </table>
+
     </div>
   </div>
 
@@ -404,14 +408,9 @@
     document.getElementById('lightbox-img').src = src;
     document.getElementById('lightbox').classList.add('open');
   }
+  function closeLightbox() { document.getElementById('lightbox').classList.remove('open'); }
 
-  function closeLightbox() {
-    document.getElementById('lightbox').classList.remove('open');
-  }
-
-  function getTabBtn(tabId) {
-    return document.querySelector('.tab-btn[onclick*="\''+tabId+'\'"]');
-  }
+  function getTabBtn(tabId) { return document.querySelector('.tab-btn[onclick*="\''+tabId+'\'"]'); }
 
   function switchTab(id, btn) {
     document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
@@ -482,7 +481,6 @@
       const card = document.createElement('div');
       card.className = 'search-result-item';
 
-      // get display text
       const titleEl = n.el.querySelector('.item-title, .discussion-quote');
       const descEl  = n.el.querySelector('.item-desc, .discussion-meta');
       let text = titleEl ? titleEl.textContent : n.el.textContent.trim().slice(0, 120);
@@ -492,18 +490,13 @@
         ? escHtml(text).replace(new RegExp(escRegex(escHtml(q)), 'gi'), m => '<mark>'+m+'</mark>')
         : escHtml(text);
 
-      // thumbnail
       const imgEl = n.el.querySelector('.item-img');
-      const imgHtml = imgEl
-        ? `<img src="${escHtml(imgEl.src)}" style="width:44px;height:44px;border-radius:6px;object-fit:cover;flex-shrink:0;">`
-        : '';
-
+      const imgHtml = imgEl ? `<img src="${escHtml(imgEl.src)}" style="width:44px;height:44px;border-radius:6px;object-fit:cover;flex-shrink:0;">` : '';
       const catHtml = n.cat ? `<span class="cat-badge ${escHtml(n.cat)}">${escHtml(n.cat)}</span>` : '';
 
       card.innerHTML =
         '<div class="search-result-meta"><span class="search-result-label">'+escHtml(n.tabLabel)+'</span>'+catHtml+'</div>' +
-        '<div style="display:flex;gap:10px;align-items:flex-start">' + imgHtml +
-        '<div class="search-result-text">'+highlighted+'</div></div>';
+        '<div style="display:flex;gap:10px;align-items:flex-start">'+imgHtml+'<div class="search-result-text">'+highlighted+'</div></div>';
 
       card.addEventListener('click', () => goToResult(n));
       sr.appendChild(card);

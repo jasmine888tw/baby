@@ -110,9 +110,66 @@
     @keyframes flash { 0% { background: #ffe0c8; } 100% { background: transparent; } }
     .flash { animation: flash 1.4s ease-out; }
 
+    /* ── outline sidebar ── */
+    #outline {
+      position: fixed;
+      top: 0;
+      left: max(0px, calc(50% - 380px - 188px));
+      width: 172px;
+      height: 100vh;
+      overflow-y: auto;
+      padding: 170px 10px 40px 12px;
+      scrollbar-width: thin;
+      scrollbar-color: #e0d8d2 transparent;
+      display: none; /* JS will show when wide enough */
+    }
+    #outline-title {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      color: #bbb;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      padding-left: 8px;
+    }
+    .outline-h2 {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: #555;
+      padding: 4px 8px;
+      margin-bottom: 2px;
+      border-radius: 6px;
+      cursor: pointer;
+      line-height: 1.4;
+      background: none;
+      border: none;
+      text-align: left;
+      width: 100%;
+    }
+    .outline-h3 {
+      display: block;
+      font-size: 11px;
+      color: #999;
+      padding: 3px 8px 3px 16px;
+      margin-bottom: 1px;
+      border-radius: 6px;
+      cursor: pointer;
+      line-height: 1.4;
+      background: none;
+      border: none;
+      text-align: left;
+      width: 100%;
+    }
+    .outline-h2:hover, .outline-h3:hover { background: #f5efea; color: #d4845a; }
+    .outline-active { color: #d4845a !important; font-weight: 600; }
+
     @media (max-width: 500px) {
       .pros-cons { grid-template-columns: 1fr; }
       .item-img, .item-img-placeholder { width: 56px; height: 56px; }
+    }
+    @media (min-width: 1080px) {
+      #outline { display: block; }
     }
   </style>
 </head>
@@ -146,6 +203,11 @@
     <button class="tab-btn" onclick="switchTab('y1', this)">1-2歲</button>
   </div>
 </header>
+
+<div id="outline">
+  <div id="outline-title">本頁目錄</div>
+  <div id="outline-list"></div>
+</div>
 
 <main>
   <div id="search-results"></div>
@@ -778,6 +840,26 @@
     if (!document.getElementById('search-input').value.trim()) {
       filterCurrentTab();
     }
+    buildOutline();
+  }
+
+  function buildOutline() {
+    const list = document.getElementById('outline-list');
+    if (!list) return;
+    const activeTab = document.querySelector('.tab-content.active');
+    if (!activeTab) return;
+    list.innerHTML = '';
+    activeTab.querySelectorAll('h2, h3').forEach(h => {
+      const btn = document.createElement('button');
+      btn.className = h.tagName === 'H2' ? 'outline-h2' : 'outline-h3';
+      btn.textContent = h.textContent;
+      btn.onclick = () => {
+        h.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        list.querySelectorAll('.outline-active').forEach(el => el.classList.remove('outline-active'));
+        btn.classList.add('outline-active');
+      };
+      list.appendChild(btn);
+    });
   }
 
   function setCategory(cat, btn) {
@@ -921,6 +1003,7 @@
 
   function escHtml(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
   function escRegex(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+  buildOutline();
 </script>
 
 </body>

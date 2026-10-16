@@ -6,37 +6,15 @@
   <title>寶寶育兒筆記</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #fdf8f5; color: #2d2d2d; font-size: 15px; line-height: 1.7; }
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #fdf8f5;
-      color: #2d2d2d;
-      font-size: 15px;
-      line-height: 1.7;
-    }
-
-    header {
-      background: #fff;
-      border-bottom: 1px solid #ece6e0;
-      padding: 20px 24px 0;
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
-
+    header { background: #fff; border-bottom: 1px solid #ece6e0; padding: 20px 24px 0; position: sticky; top: 0; z-index: 10; }
     header h1 { font-size: 20px; font-weight: 700; color: #3a3a3a; margin-bottom: 12px; }
 
-    .search-row { display: flex; gap: 8px; align-items: center; margin-bottom: 10px; }
-    .search-wrap { flex: 1; position: relative; }
-    .search-wrap input {
-      width: 100%; padding: 8px 36px 8px 14px; border: 1px solid #e0d8d2;
-      border-radius: 8px; font-size: 14px; background: #fdf8f5; color: #3a3a3a; outline: none; transition: border-color 0.15s;
-    }
+    .search-wrap { position: relative; margin-bottom: 10px; }
+    .search-wrap input { width: 100%; padding: 8px 36px 8px 14px; border: 1px solid #e0d8d2; border-radius: 8px; font-size: 14px; background: #fdf8f5; color: #3a3a3a; outline: none; transition: border-color 0.15s; }
     .search-wrap input:focus { border-color: #d4845a; background: #fff; }
-    .search-wrap .clear-btn {
-      position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
-      background: none; border: none; cursor: pointer; color: #bbb; font-size: 16px; display: none; line-height: 1;
-    }
+    .search-wrap .clear-btn { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: #bbb; font-size: 16px; display: none; line-height: 1; }
 
     .cat-chips { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 10px; scrollbar-width: none; }
     .cat-chips::-webkit-scrollbar { display: none; }
@@ -53,9 +31,10 @@
     main { max-width: 760px; margin: 0 auto; padding: 28px 20px; }
     .tab-content { display: none; }
     .tab-content.active { display: block; }
+
+    /* search results panel — only shown when search query is active */
     #search-results { display: none; }
     #search-results.active { display: block; }
-
     .search-count { font-size: 13px; color: #999; margin-bottom: 12px; }
     .search-result-item { background: #fff; border: 1px solid #ece6e0; border-radius: 10px; padding: 14px 18px; margin-bottom: 10px; cursor: pointer; transition: border-color 0.15s, box-shadow 0.15s; }
     .search-result-item:hover { border-color: #d4845a; box-shadow: 0 2px 8px rgba(212,132,90,0.12); }
@@ -65,13 +44,15 @@
     .search-result-text mark { background: #ffe0c8; color: #3a3a3a; border-radius: 3px; padding: 0 2px; }
     .search-empty { text-align: center; color: #bbb; font-size: 14px; padding: 40px 0; }
 
+    /* section */
     .section { background: #fff; border-radius: 12px; padding: 20px 24px; margin-bottom: 16px; border: 1px solid #ece6e0; }
     .section h2 { font-size: 16px; font-weight: 700; color: #3a3a3a; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid #f0ebe6; }
     .section h3 { font-size: 14px; font-weight: 600; color: #666; margin: 16px 0 8px; }
 
+    /* item */
     .item { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid #f8f4f1; border-radius: 4px; transition: background 0.3s; }
-    .item:last-child { border-bottom: none; }
-    .item-img { width: 72px; height: 72px; border-radius: 8px; object-fit: cover; flex-shrink: 0; background: #f0ebe6; cursor: pointer; }
+    .item:last-of-type { border-bottom: none; }
+    .item-img { width: 72px; height: 72px; border-radius: 8px; object-fit: cover; flex-shrink: 0; cursor: pointer; }
     .item-img-placeholder { width: 72px; height: 72px; border-radius: 8px; flex-shrink: 0; background: #f0ebe6; display: flex; align-items: center; justify-content: center; font-size: 24px; }
     .item-body { flex: 1; min-width: 0; }
     .item-title { font-size: 14px; color: #3a3a3a; font-weight: 600; }
@@ -89,7 +70,6 @@
     .source-tag { font-size: 11px; color: #aaa; background: #f5f0ec; border-radius: 4px; padding: 2px 7px; white-space: nowrap; text-decoration: none; }
     .source-tag:hover { color: #888; }
 
-    /* callout variants */
     .callout { background: #fef3ec; border-left: 3px solid #d4845a; border-radius: 0 8px 8px 0; padding: 12px 16px; margin: 10px 0; font-size: 14px; color: #4a3a30; transition: background 0.3s; }
     .callout strong { display: block; margin-bottom: 4px; }
     .callout.warn { background: #fff0f0; border-left-color: #c0392b; color: #6a2020; }
@@ -97,7 +77,7 @@
     .callout.tip  { background: #efffef; border-left-color: #3a9a3a; color: #1a4a1a; }
 
     .pros-cons { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px; }
-    .pros, .cons { background: #f8f4f1; border-radius: 8px; padding: 12px 14px; transition: background 0.3s; }
+    .pros, .cons { background: #f8f4f1; border-radius: 8px; padding: 12px 14px; }
     .pros h4 { color: #5a8a5a; font-size: 13px; margin-bottom: 8px; }
     .cons h4 { color: #8a5a5a; font-size: 13px; margin-bottom: 8px; }
     .pros ul, .cons ul { list-style: none; padding: 0; }
@@ -105,7 +85,7 @@
     .cons li::before { content: "✗ "; color: #8a5a5a; }
     .pros li, .cons li { font-size: 13px; color: #555; margin-bottom: 4px; line-height: 1.5; }
 
-    .verdict { background: #e8f0e8; border-radius: 8px; padding: 12px 16px; margin-top: 12px; font-size: 14px; color: #3a5a3a; transition: background 0.3s; }
+    .verdict { background: #e8f0e8; border-radius: 8px; padding: 12px 16px; margin-top: 12px; font-size: 14px; color: #3a5a3a; }
 
     .period-table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 10px 0; }
     .period-table th { background: #f8f4f1; padding: 7px 10px; text-align: left; color: #555; font-weight: 600; border-bottom: 1px solid #ece6e0; }
@@ -145,11 +125,9 @@
 
 <header>
   <h1>寶寶育兒筆記</h1>
-  <div class="search-row">
-    <div class="search-wrap">
-      <input type="text" id="search-input" placeholder="搜尋關鍵字…" oninput="doSearch()">
-      <button class="clear-btn" id="clear-btn" onclick="clearSearch()">✕</button>
-    </div>
+  <div class="search-wrap">
+    <input type="text" id="search-input" placeholder="搜尋關鍵字（跨所有分頁）…" oninput="onSearch()">
+    <button class="clear-btn" id="clear-btn" onclick="clearSearch()">✕</button>
   </div>
   <div class="cat-chips">
     <button class="chip active" onclick="setCategory('全部', this)">全部</button>
@@ -160,8 +138,7 @@
   </div>
   <div class="tabs">
     <button class="tab-btn active" onclick="switchTab('pre', this)">出生前</button>
-    <button class="tab-btn" onclick="switchTab('m0', this)">0-1個月</button>
-    <button class="tab-btn" onclick="switchTab('m1', this)">1-2個月</button>
+    <button class="tab-btn" onclick="switchTab('m0', this)">0-2個月</button>
     <button class="tab-btn" onclick="switchTab('m2', this)">2-4個月</button>
     <button class="tab-btn" onclick="switchTab('m4', this)">4-6個月</button>
     <button class="tab-btn" onclick="switchTab('m6', this)">6-9個月</button>
@@ -177,7 +154,6 @@
   <div id="tab-pre" class="tab-content active" data-label="出生前">
     <div class="section">
       <h2>用品清單</h2>
-
       <div class="item" data-cat="用品">
         <img class="item-img" src="images/bath-support.png" alt="洗屁屁浴架" onclick="openLightbox(this.src)">
         <div class="item-body">
@@ -190,16 +166,13 @@
           <a class="source-tag" href="https://tw.shp.ee/SP8DkkqY" target="_blank">蝦皮購買</a>
         </div>
       </div>
-
-
-
     </div>
   </div>
 
-  <!-- 0-1個月 -->
-  <div id="tab-m0" class="tab-content" data-label="0-1個月">
+  <!-- 0-2個月 -->
+  <div id="tab-m0" class="tab-content" data-label="0-2個月">
 
-    <div class="section">
+    <div class="section" data-section-cat="用品">
       <h2>洗澡</h2>
       <div class="item" data-cat="用品">
         <img class="item-img" src="images/bath-support.png" alt="洗屁屁浴架" onclick="openLightbox(this.src)">
@@ -213,7 +186,6 @@
           <a class="source-tag" href="https://tw.shp.ee/SP8DkkqY" target="_blank">蝦皮購買</a>
         </div>
       </div>
-
       <h3>使用月齡參考</h3>
       <table class="period-table">
         <tr><th>月齡</th><th>使用狀況</th></tr>
@@ -222,7 +194,6 @@
         <tr><td>6個月–1歲</td><td>體重 9kg 內可繼續使用</td></tr>
         <tr><td>1–1.5歲</td><td>能站立後自然退役</td></tr>
       </table>
-
       <h3>PTT 社群討論</h3>
       <div class="discussion" data-cat="用品">
         <div class="discussion-quote">「單手洗屁屁，解放另一隻手沖水，大幅降低媽媽手。特別適合無後援、一個人帶小孩的家庭。」</div>
@@ -234,19 +205,16 @@
       </div>
     </div>
 
-    <div class="section">
+    <div class="section" data-section-cat="健康">
       <h2>頭型與睡姿</h2>
-
       <div class="callout warn" data-cat="健康">
         <strong>⚠️ 醫生警告：6個月前請勿使用定型枕</strong>
         新生兒科醫生與台灣衛福部均不建議。4個月前頸肌未成熟，厚枕可能折到氣管；窒息時大腦無法發出自救指令，有致命風險。
       </div>
-
       <div class="callout tip" data-cat="健康">
         <strong>✅ 醫生推薦替代方法（0–3個月黃金期）</strong>
         清醒時多「趴趴時間」· 交替左右方向餵奶 · 睡覺時交替頭朝方向。效果比定型枕更好且無風險。
       </div>
-
       <h3>社群討論</h3>
       <div class="discussion" data-cat="健康">
         <div class="discussion-quote">「PTT 新生兒科醫生公開批評：不肖廠商透過錯誤觀念誘導購買，提高小孩死亡率。頭型主要由遺傳決定，前囟門 1–1.5 歲才完全閉合，人工塑形效果存疑。」</div>
@@ -258,14 +226,6 @@
       </div>
     </div>
 
-  </div>
-
-  <!-- 1-2個月 -->
-  <div id="tab-m1" class="tab-content" data-label="1-2個月">
-    <div class="section">
-      <h2>1-2 個月</h2>
-      <p class="empty-note">持續更新中，請繼續貼入資訊</p>
-    </div>
   </div>
 
   <!-- 2-4個月 -->
@@ -286,14 +246,12 @@
 
   <!-- 6-9個月 -->
   <div id="tab-m6" class="tab-content" data-label="6-9個月">
-    <div class="section">
+    <div class="section" data-section-cat="用品">
       <h2>頭型 — 定型枕（可考慮開始使用）</h2>
-
       <div class="callout info" data-cat="用品">
         <strong>📋 6個月後若仍有偏頭疑慮，可考慮使用定型枕</strong>
-        此時顱骨發育較穩定，但仍建議選薄枕（1–2cm）、高透氣材質，並觀察寶寶睡眠狀況。
+        此時顱骨發育較穩定，選薄枕（1–2cm）、高透氣材質，並觀察寶寶睡眠狀況。
       </div>
-
       <div class="item" data-cat="用品">
         <img class="item-img" src="images/head-pillow.png" alt="嬰兒定型枕" onclick="openLightbox(this.src)">
         <div class="item-body">
@@ -306,7 +264,6 @@
           <a class="source-tag" href="https://shopee.tw/product/12958008/41323060972" target="_blank">蝦皮購買</a>
         </div>
       </div>
-
       <h3>挑選重點</h3>
       <table class="period-table">
         <tr><th>項目</th><th>建議</th></tr>
@@ -315,15 +272,13 @@
         <tr><td>形狀</td><td class="ok">中間凹陷，頭部不易側滑</td></tr>
         <tr><td>台灣推薦</td><td>西班牙 Mimos 3D、Babymoov、BeBeBus 蝴蝶定型枕</td></tr>
       </table>
-
     </div>
   </div>
 
   <!-- 9-12個月 -->
   <div id="tab-m9" class="tab-content" data-label="9-12個月">
-    <div class="section">
+    <div class="section" data-section-cat="用品">
       <h2>揹帶 — 單肩背巾（可開始使用）</h2>
-
       <div class="item" data-cat="用品">
         <img class="item-img" src="images/carrier-single.jpeg" alt="單肩背巾" onclick="openLightbox(this.src)">
         <div class="item-body">
@@ -336,7 +291,6 @@
           <a class="source-tag" href="https://shopee.tw/product/75175447/45766231417" target="_blank">蝦皮購買</a>
         </div>
       </div>
-
       <h3>揹帶類型比較</h3>
       <table class="period-table">
         <tr><th>類型</th><th>適用月齡</th><th>特點</th></tr>
@@ -344,29 +298,21 @@
         <tr><td>彈力布背巾（雙肩）</td><td class="ok">0個月起</td><td>親膚包覆感好，新生兒期推薦</td></tr>
         <tr><td>單肩斜背背巾（本款）</td><td class="warn">9個月以上</td><td>輕便外出輔助，不適合長時間或新生兒</td></tr>
       </table>
-
-      <h3>安全注意事項</h3>
       <div class="callout warn" data-cat="健康">
-        <strong>⚠️ 單肩背巾使用安全提醒</strong>
+        <strong>⚠️ 安全提醒</strong>
         確認寶寶呈 M 字腿坐姿（避免髖關節發育問題）。確認有安全扣防止寶寶滑出。長時間使用易造成單側肩膀痠痛，建議短時外出用。
       </div>
-
       <h3>社群討論</h3>
       <div class="discussion" data-cat="用品">
         <div class="discussion-quote">「輕便好帶，一個人可快速穿脫，機動性高。可短暫替代懷抱，逛街外出很方便。但背久肩膀痠，不適合長時間使用。」</div>
         <div class="discussion-meta">PTT 媽媽心得 · <a href="https://www.ptt.cc/bbs/BabyMother/M.1712386422.A.8D9.html" target="_blank">PTT BabyMother</a></div>
       </div>
-      <div class="discussion" data-cat="用品">
-        <div class="discussion-quote">「PTT 普遍建議：雙肩結構式背帶才是主力，單肩背巾當輔助。選購時確認通過 SGS 或 ASTM 認證。」</div>
-        <div class="discussion-meta">選購建議 · <a href="https://www.wildridecarrier.tw/pages/types-of-baby-carriers" target="_blank">野騎嬰兒背帶</a></div>
-      </div>
-
     </div>
   </div>
 
   <!-- 1-2歲 -->
   <div id="tab-y1" class="tab-content" data-label="1-2歲">
-    <div class="section">
+    <div class="section" data-section-cat="托育">
       <h2>托育選擇：保母 vs 托嬰中心</h2>
       <div class="callout" data-cat="托育">
         <strong>適用時機</strong>
@@ -430,58 +376,94 @@
   let activeCat = '全部';
   let allNodes = null;
 
-  function openLightbox(src) {
-    document.getElementById('lightbox-img').src = src;
-    document.getElementById('lightbox').classList.add('open');
-  }
+  function openLightbox(src) { document.getElementById('lightbox-img').src = src; document.getElementById('lightbox').classList.add('open'); }
   function closeLightbox() { document.getElementById('lightbox').classList.remove('open'); }
 
-  function getTabBtn(tabId) { return document.querySelector('.tab-btn[onclick*="\''+tabId+'\'"]'); }
+  function getTabBtn(tabId) { return document.querySelector(`.tab-btn[onclick*="'${tabId}'"]`); }
 
   function switchTab(id, btn) {
     document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
     document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
     document.getElementById('tab-' + id).classList.add('active');
     (btn || getTabBtn(id)).classList.add('active');
+    // re-apply category filter to new tab (only if not searching)
+    if (!document.getElementById('search-input').value.trim()) {
+      filterCurrentTab();
+    }
   }
 
   function setCategory(cat, btn) {
     activeCat = cat;
     document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
     btn.classList.add('active');
-    doSearch();
+    const q = document.getElementById('search-input').value.trim();
+    if (q) {
+      doSearch(q); // re-run search with new filter
+    } else {
+      filterCurrentTab(); // filter within current tab
+    }
+  }
+
+  // Filter items within the currently active tab
+  function filterCurrentTab() {
+    const activeTab = document.querySelector('.tab-content.active');
+    if (!activeTab) return;
+
+    if (activeCat === '全部') {
+      // show everything
+      activeTab.querySelectorAll('.section').forEach(s => s.style.display = '');
+      activeTab.querySelectorAll('[data-cat]').forEach(el => el.style.display = '');
+      return;
+    }
+
+    // show/hide individual [data-cat] elements
+    activeTab.querySelectorAll('[data-cat]').forEach(el => {
+      el.style.display = el.getAttribute('data-cat') === activeCat ? '' : 'none';
+    });
+
+    // hide whole sections that have no visible [data-cat] items
+    activeTab.querySelectorAll('.section').forEach(section => {
+      const visible = [...section.querySelectorAll('[data-cat]')]
+        .some(el => el.style.display !== 'none');
+      section.style.display = visible ? '' : 'none';
+    });
+  }
+
+  // Cross-tab search (only when there's a text query)
+  function onSearch() {
+    const q = document.getElementById('search-input').value.trim();
+    document.getElementById('clear-btn').style.display = q ? 'block' : 'none';
+    if (q) {
+      doSearch(q);
+    } else {
+      // back to tab view
+      document.getElementById('search-results').classList.remove('active');
+      document.getElementById('search-results').innerHTML = '';
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      const active = document.querySelector('.tab-btn.active');
+      if (active) {
+        const m = active.getAttribute('onclick').match(/'([^']+)'/);
+        if (m) document.getElementById('tab-' + m[1]).classList.add('active');
+      }
+      filterCurrentTab();
+    }
   }
 
   function collectNodes() {
     const nodes = [];
-    const selectors = ['.item', '.callout', '.verdict', '.pros-cons', '.discussion'];
     document.querySelectorAll('.tab-content').forEach(tab => {
-      const tabId    = tab.id.replace('tab-', '');
+      const tabId = tab.id.replace('tab-', '');
       const tabLabel = tab.getAttribute('data-label');
-      selectors.forEach(sel => {
-        tab.querySelectorAll(sel).forEach(el => {
-          nodes.push({ tabId, tabLabel, el, cat: el.getAttribute('data-cat') || '' });
-        });
+      tab.querySelectorAll('[data-cat]').forEach(el => {
+        nodes.push({ tabId, tabLabel, el, cat: el.getAttribute('data-cat') });
       });
     });
     return nodes;
   }
 
-  function doSearch() {
+  function doSearch(q) {
     if (!allNodes) allNodes = collectNodes();
-    const q  = document.getElementById('search-input').value.trim();
     const sr = document.getElementById('search-results');
-    document.getElementById('clear-btn').style.display = q ? 'block' : 'none';
-
-    const isFiltering = q || activeCat !== '全部';
-    if (!isFiltering) {
-      sr.classList.remove('active'); sr.innerHTML = '';
-      const active = document.querySelector('.tab-btn.active');
-      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-      if (active) { const m = active.getAttribute('onclick').match(/'([^']+)'/); if (m) document.getElementById('tab-'+m[1]).classList.add('active'); }
-      return;
-    }
-
     document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
     sr.classList.add('active');
 
@@ -489,41 +471,32 @@
     const seen = new Set();
     const matched = allNodes.filter(n => {
       if (seen.has(n.el)) return false;
-      const textOk = !q || n.el.textContent.toLowerCase().includes(kw);
-      const catOk  = activeCat === '全部' || n.cat === activeCat;
+      const textOk = n.el.textContent.toLowerCase().includes(kw);
+      const catOk = activeCat === '全部' || n.cat === activeCat;
       if (textOk && catOk) { seen.add(n.el); return true; }
       return false;
     });
 
     if (matched.length === 0) {
-      sr.innerHTML = '<p class="search-empty">找不到' + (activeCat !== '全部' ? `「${escHtml(activeCat)}」` : '') + (q ? `「${escHtml(q)}」` : '') + '相關內容</p>';
+      sr.innerHTML = '<p class="search-empty">找不到' + (activeCat !== '全部' ? `「${escHtml(activeCat)}」` : '') + `「${escHtml(q)}」相關內容</p>`;
       return;
     }
 
-    const label = activeCat !== '全部' && !q ? `${activeCat} — 共 ${matched.length} 筆` : `找到 ${matched.length} 筆，點擊前往`;
-    sr.innerHTML = '<p class="search-count">' + label + '</p>';
-
+    sr.innerHTML = '<p class="search-count">找到 ' + matched.length + ' 筆，點擊前往</p>';
     matched.forEach(n => {
       const card = document.createElement('div');
       card.className = 'search-result-item';
-
       const titleEl = n.el.querySelector('.item-title, .discussion-quote');
       const descEl  = n.el.querySelector('.item-desc, .discussion-meta');
       let text = titleEl ? titleEl.textContent : n.el.textContent.trim().slice(0, 120);
       if (descEl && titleEl) text += '　' + descEl.textContent.slice(0, 60);
-
-      const highlighted = q
-        ? escHtml(text).replace(new RegExp(escRegex(escHtml(q)), 'gi'), m => '<mark>'+m+'</mark>')
-        : escHtml(text);
-
+      const highlighted = escHtml(text).replace(new RegExp(escRegex(escHtml(q)), 'gi'), m => '<mark>'+m+'</mark>');
       const imgEl = n.el.querySelector('.item-img');
       const imgHtml = imgEl ? `<img src="${escHtml(imgEl.src)}" style="width:44px;height:44px;border-radius:6px;object-fit:cover;flex-shrink:0;">` : '';
       const catHtml = n.cat ? `<span class="cat-badge ${escHtml(n.cat)}">${escHtml(n.cat)}</span>` : '';
-
       card.innerHTML =
-        '<div class="search-result-meta"><span class="search-result-label">'+escHtml(n.tabLabel)+'</span>'+catHtml+'</div>' +
-        '<div style="display:flex;gap:10px;align-items:flex-start">'+imgHtml+'<div class="search-result-text">'+highlighted+'</div></div>';
-
+        `<div class="search-result-meta"><span class="search-result-label">${escHtml(n.tabLabel)}</span>${catHtml}</div>` +
+        `<div style="display:flex;gap:10px;align-items:flex-start">${imgHtml}<div class="search-result-text">${highlighted}</div></div>`;
       card.addEventListener('click', () => goToResult(n));
       sr.appendChild(card);
     });
@@ -532,8 +505,13 @@
   function goToResult(n) {
     document.getElementById('search-results').classList.remove('active');
     document.getElementById('search-results').innerHTML = '';
+    activeCat = '全部';
+    document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+    document.querySelector('.chip').classList.add('active');
     document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
     switchTab(n.tabId);
+    // restore all visibility before scrolling
+    document.querySelectorAll('[data-cat], .section').forEach(el => el.style.display = '');
     requestAnimationFrame(() => {
       n.el.scrollIntoView({ behavior: 'smooth', block: 'center' });
       n.el.classList.remove('flash'); void n.el.offsetWidth;
@@ -544,15 +522,13 @@
 
   function clearSearch() {
     document.getElementById('search-input').value = '';
-    activeCat = '全部';
-    document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-    document.querySelector('.chip').classList.add('active');
     document.getElementById('clear-btn').style.display = 'none';
-    const sr = document.getElementById('search-results');
-    sr.classList.remove('active'); sr.innerHTML = '';
-    const active = document.querySelector('.tab-btn.active');
+    document.getElementById('search-results').classList.remove('active');
+    document.getElementById('search-results').innerHTML = '';
     document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    const active = document.querySelector('.tab-btn.active');
     if (active) { const m = active.getAttribute('onclick').match(/'([^']+)'/); if (m) document.getElementById('tab-'+m[1]).classList.add('active'); }
+    filterCurrentTab();
   }
 
   function escHtml(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }

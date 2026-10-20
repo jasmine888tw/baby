@@ -217,6 +217,42 @@
       .pros-cons { grid-template-columns: 1fr; }
       .item-img, .item-img-placeholder { width: 56px; height: 56px; }
     }
+
+    /* 發展里程碑 timeline */
+    .dev-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid #e8e0d8; margin: 8px 0 24px; }
+    .dev-table { border-collapse: collapse; min-width: max-content; }
+    .dev-table thead th {
+      background: #f5f0eb; font-size: 11px; font-weight: 700; color: #888;
+      padding: 7px 0; text-align: center; min-width: 50px;
+      border-right: 1px solid #e8e0d8; border-bottom: 2px solid #d8cfc5;
+    }
+    .dev-table thead th.dev-lbl { min-width: 88px; position: sticky; left: 0; z-index: 3; text-align: left; padding-left: 10px; }
+    .dev-table thead th.yr2 { background: #ede8e2; }
+    .dev-cat {
+      position: sticky; left: 0; background: #faf7f4; z-index: 1;
+      padding: 0 10px; font-size: 12px; font-weight: 700; color: #4a3a2e;
+      border-right: 2px solid #d8cfc5; white-space: nowrap; min-width: 88px;
+      vertical-align: middle;
+    }
+    .dev-cat.sub { font-weight: 500; color: #888; font-size: 11px; }
+    .dbar {
+      padding: 5px 8px; font-size: 11px; font-weight: 500;
+      border-right: 2px solid #fff; white-space: nowrap;
+      vertical-align: middle; line-height: 1.3;
+    }
+    .dbar.empty { background: #faf7f4; border-right: 1px solid #f0ebe6; }
+    .dev-table tr { border-bottom: 1px solid #f0ebe6; }
+    .dev-table tr:last-child { border-bottom: none; }
+    .dg  { background: #d4edda; color: #155724; } /* 純奶 */
+    .do  { background: #fde8cc; color: #7a3800; } /* 奶+副食品 */
+    .db  { background: #cfe2ff; color: #0a3d7a; } /* 三餐鮮奶 */
+    .dy  { background: #fff3cd; color: #664d03; } /* 副食品 */
+    .dt  { background: #d0f0ec; color: #0a4d46; } /* 大動作 */
+    .dp  { background: #e8d5f5; color: #4a1d8a; } /* 精細 */
+    .dpi { background: #fde0ec; color: #8b1a4a; } /* 語言社交 */
+    .dn  { background: #dde3f0; color: #1e3460; } /* 睡眠 */
+    .dev-note { font-size: 11px; color: #888; margin-top: 6px; padding-left: 4px; }
+    .dev-section-title { font-size: 13px; font-weight: 700; color: #4a3a2e; margin: 20px 0 6px; }
   </style>
 </head>
 <body>
@@ -1039,109 +1075,93 @@
 
   <!-- 發展里程碑 -->
   <div id="tab-dev" class="tab-content" data-label="發展里程碑">
-
     <div class="section">
-      <h2>新生兒（0–1 個月）</h2>
-      <table class="period-table">
-        <tr><th>面向</th><th>說明</th></tr>
-        <tr><td>🍼 飲食</td><td>純母乳或配方奶，<strong>每 2–3 小時喝一次</strong>（含夜間），每次 60–90ml；體重恢復出生體重前不限量</td></tr>
-        <tr><td>🦵 大動作</td><td>俯臥短暫抬頭（數秒）；四肢屈曲是正常姿勢</td></tr>
-        <tr><td>🖐 精細動作</td><td>手掌握拳；掌握反射（觸碰手心會握緊）</td></tr>
-        <tr><td>🗣 語言社交</td><td>以哭聲溝通；注視距離約 20–30cm 的人臉；對聲音有驚嚇反射</td></tr>
-        <tr><td>😴 睡眠</td><td>每天約 <strong>16–17 小時</strong>；無日夜節律，每 2–3 小時循環；夜間仍需頻繁餵食</td></tr>
-      </table>
-    </div>
+      <h2>寶寶發展時程</h2>
+      <p class="dev-note">月齡為參考範圍，個別差異大；提早或稍晚均屬正常。出現★標示月份為重要里程碑。</p>
 
-    <div class="section">
-      <h2>1–3 個月</h2>
-      <table class="period-table">
-        <tr><th>面向</th><th>說明</th></tr>
-        <tr><td>🍼 飲食</td><td>仍以母乳或配方奶為主；奶量逐漸增加至單次 90–150ml；部分寶寶開始拉長喝奶間隔至 3–4 小時</td></tr>
-        <tr><td>🦵 大動作</td><td>2 個月：趴著可撐胸；3 個月：頭部控制明顯進步，可短暫支撐</td></tr>
-        <tr><td>🖐 精細動作</td><td>開始伸手觸碰物體；雙手偶爾移到嘴邊</td></tr>
-        <tr><td>🗣 語言社交</td><td><strong>2 個月：社交微笑</strong>（對人臉微笑是重要里程碑）；3 個月：開始咿呀發聲、與照顧者互動</td></tr>
-        <tr><td>😴 睡眠</td><td>夜間睡眠段拉長（可能連睡 4–5 小時）；開始形成約略規律；白天仍有 3–4 次小睡</td></tr>
-      </table>
-    </div>
-
-    <div class="section">
-      <h2>3–6 個月</h2>
-      <table class="period-table">
-        <tr><th>面向</th><th>說明</th></tr>
-        <tr><td>🍼 飲食</td><td>仍以奶為主；<strong>4–6 個月可觀察副食品準備跡象</strong>：頭部可穩定支撐、對食物感興趣、舌頭推吐反射消失</td></tr>
-        <tr><td>🦵 大動作</td><td>4 個月：開始翻身（肚翻背）；5–6 個月：坐（需輔助）；趴趴時間每次 10–15 分鐘</td></tr>
-        <tr><td>🖐 精細動作</td><td>主動抓握玩具；雙手傳物；物品入口探索</td></tr>
-        <tr><td>🗣 語言社交</td><td>笑聲；認識主要照顧者；對鏡子感興趣；開始發出子音（ba、ma、da）</td></tr>
-        <tr><td>😴 睡眠</td><td>夜間可連睡 6–8 小時；<strong>6 個月是睡眠訓練黃金期</strong>；白天 2–3 次小睡</td></tr>
-      </table>
-      <div class="callout info">
-        <strong>副食品準備跡象（4–6 個月觀察）</strong><br>
-        ① 頭部可穩定支撐不歪 ② 看到大人吃東西會感興趣 ③ 舌頭不再把食物自動推出去（舌推反射消失）<br>
-        三項都符合才建議開始，不必趕在 4 個月。WHO 建議 6 個月，台灣兒科學會建議 4–6 個月視個別發展。
+      <div class="dev-wrap">
+        <table class="dev-table">
+          <thead>
+            <tr>
+              <th class="dev-lbl">月齡</th>
+              <th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
+              <th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th>
+              <th class="yr2">12</th><th class="yr2">13</th><th class="yr2">14</th>
+              <th class="yr2">15</th><th class="yr2">16</th><th class="yr2">17</th>
+              <th class="yr2">18</th><th class="yr2">19</th><th class="yr2">20</th>
+              <th class="yr2">21</th><th class="yr2">22</th><th class="yr2">23</th><th class="yr2">24</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="dev-cat">🍼 哺餵</td>
+              <td colspan="6" class="dbar dg">純母乳 / 配方奶（按需哺餵）</td>
+              <td colspan="6" class="dbar do">★ 奶 + 副食品（6月起正式）</td>
+              <td colspan="13" class="dbar db">★ 三餐為主 + 全脂鮮奶（12月起）</td>
+            </tr>
+            <tr>
+              <td class="dev-cat sub">└副食品</td>
+              <td colspan="4" class="dbar empty"></td>
+              <td colspan="2" class="dbar dy" style="font-style:italic;color:#999;">觀察期</td>
+              <td colspan="6" class="dbar dy">泥狀（米糊→蔬菜→肉泥）</td>
+              <td colspan="3" class="dbar dy">碎狀</td>
+              <td colspan="10" class="dbar dy">手指食物 → 與家人同桌</td>
+            </tr>
+            <tr>
+              <td class="dev-cat">🦵 大動作</td>
+              <td colspan="2" class="dbar dt">俯臥抬頭</td>
+              <td colspan="2" class="dbar dt">趴撐胸</td>
+              <td colspan="2" class="dbar dt">★翻身</td>
+              <td colspan="2" class="dbar dt">★坐（輔助→獨坐）</td>
+              <td colspan="2" class="dbar dt">★爬行</td>
+              <td colspan="2" class="dbar dt">扶站/扶走</td>
+              <td colspan="3" class="dbar dt">★獨立行走</td>
+              <td colspan="3" class="dbar dt">跑</td>
+              <td colspan="7" class="dbar dt">跳、爬樓梯</td>
+            </tr>
+            <tr>
+              <td class="dev-cat">🖐 精細動作</td>
+              <td colspan="2" class="dbar dp">握拳反射</td>
+              <td colspan="4" class="dbar dp">伸手觸碰</td>
+              <td colspan="3" class="dbar dp">抓握/雙手傳物</td>
+              <td colspan="3" class="dbar dp">★捏取小物</td>
+              <td colspan="6" class="dbar dp">拿杯/翻書/疊積木</td>
+              <td colspan="7" class="dbar dp">餐具、塗鴉、穿珠</td>
+            </tr>
+            <tr>
+              <td class="dev-cat">🗣 語言社交</td>
+              <td colspan="2" class="dbar dpi">哭聲</td>
+              <td colspan="2" class="dbar dpi">★社交微笑</td>
+              <td colspan="2" class="dbar dpi">咿呀發聲</td>
+              <td colspan="2" class="dbar dpi">認識照顧者</td>
+              <td colspan="2" class="dbar dpi">★認生/分離焦慮</td>
+              <td colspan="2" class="dbar dpi">★有意義叫人</td>
+              <td colspan="6" class="dbar dpi">詞彙增長（應≥10詞）</td>
+              <td colspan="7" class="dbar dpi">★句子出現（應≥50詞）</td>
+            </tr>
+            <tr>
+              <td class="dev-cat">😴 睡眠</td>
+              <td colspan="3" class="dbar dn">16–17h，無日夜節律</td>
+              <td colspan="3" class="dbar dn">夜眠段拉長</td>
+              <td colspan="6" class="dbar dn">★作息固定（訓練黃金期）</td>
+              <td colspan="13" class="dbar dn">11–14h，白天 1 次午睡</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-    </div>
 
-    <div class="section">
-      <h2>6–9 個月</h2>
-      <table class="period-table">
-        <tr><th>面向</th><th>說明</th></tr>
-        <tr><td>🍼 飲食</td><td><strong>副食品正式開始</strong>：米糊 → 蔬菜泥 → 水果泥 → 肉泥，每次一種新食材觀察 3 天；奶量不減，副食品是「加法」不是替代</td></tr>
-        <tr><td>🦵 大動作</td><td>6 個月：獨坐（短暫）；7–8 個月：爬行開始（匍匐 → 四肢爬）；扶物站立</td></tr>
-        <tr><td>🖐 精細動作</td><td>拇指與食指「捏」小物（9 個月）；開始自己拿食物</td></tr>
-        <tr><td>🗣 語言社交</td><td><strong>8–9 個月：分離焦慮、認生開始</strong>；叫「媽媽/爸爸」（不一定有意義）；用手指物</td></tr>
-        <tr><td>😴 睡眠</td><td>夜間 10–12 小時；白天 2 次小睡（早上＋下午）；分離焦慮可能影響夜眠</td></tr>
-      </table>
       <div class="callout warn">
-        <strong>⚠️ 副食品地雷食材（1 歲前避免）</strong><br>
-        蜂蜜（肉毒桿菌）、鮮牛奶（腎臟負擔）、整顆堅果（噎到）、加工食品（鈉太高）、含糖飲料。海鮮、蛋白等過敏原可少量嘗試，觀察 3 天無反應再繼續。
+        <strong>⚠️ 1 歲前副食品地雷</strong>
+        蜂蜜（肉毒桿菌）、鮮牛奶（腎負擔）、整顆堅果（噎到風險）、加工食品（高鈉）、含糖飲料。
+        海鮮、蛋白等過敏原少量嘗試後觀察 3 天。
+      </div>
+
+      <div class="callout warn">
+        <strong>⚠️ 語言發展遲緩警示</strong>
+        12個月無任何詞彙 → 回診；18個月詞彙 &lt; 10 個 → 語言評估；2歲無法兩個詞組合 → 盡快就醫。早期介入效果最好，不要「等等看」。
       </div>
     </div>
-
-    <div class="section">
-      <h2>9–12 個月</h2>
-      <table class="period-table">
-        <tr><th>面向</th><th>說明</th></tr>
-        <tr><td>🍼 飲食</td><td>副食品從泥狀 → <strong>細碎狀 → 手指食物</strong>；一天 2–3 餐副食品＋2–3 次母乳或配方奶；練習使用杯子喝水</td></tr>
-        <tr><td>🦵 大動作</td><td>扶物行走；部分寶寶開始獨站；10–12 個月：少數已獨立走幾步</td></tr>
-        <tr><td>🖐 精細動作</td><td>自己拿杯子；翻書頁；疊積木（2 個）</td></tr>
-        <tr><td>🗣 語言社交</td><td><strong>有意義叫出第一個詞（媽媽/爸爸/不要）</strong>；理解簡單指令（「把玩具拿來」）；揮手再見</td></tr>
-        <tr><td>😴 睡眠</td><td>夜間 11–12 小時；白天 1–2 次小睡；作息逐漸固定</td></tr>
-      </table>
-    </div>
-
-    <div class="section">
-      <h2>12–18 個月</h2>
-      <table class="period-table">
-        <tr><th>面向</th><th>說明</th></tr>
-        <tr><td>🍼 飲食</td><td><strong>12 個月起可轉全脂鮮牛奶</strong>（每天不超過 500ml）；三餐為主、點心補充；母乳可繼續哺餵沒有上限</td></tr>
-        <tr><td>🦵 大動作</td><td><strong>12–15 個月：多數寶寶開始獨立行走</strong>；18 個月：跑步、爬低矮階梯</td></tr>
-        <tr><td>🖐 精細動作</td><td>用湯匙吃飯（很凌亂）；疊積木 3–4 個；塗鴉</td></tr>
-        <tr><td>🗣 語言社交</td><td>詞彙快速增長；18 個月應有 <strong>至少 10 個詞</strong>；開始兩個詞組合（「媽媽抱」）</td></tr>
-        <tr><td>😴 睡眠</td><td>夜間 11–14 小時；白天 1 次小睡（約 1–2 小時）</td></tr>
-      </table>
-    </div>
-
-    <div class="section">
-      <h2>18 個月–2 歲</h2>
-      <table class="period-table">
-        <tr><th>面向</th><th>說明</th></tr>
-        <tr><td>🍼 飲食</td><td>與家人同桌吃相似食物（減鹽減糖版）；練習自己使用餐具；挑食期常見，正常現象</td></tr>
-        <tr><td>🦵 大動作</td><td>跑、踢球、爬樓梯（雙腳交替）；2 歲：跳躍</td></tr>
-        <tr><td>🖐 精細動作</td><td>開瓶蓋、穿珠子；疊 6 個積木；2 歲：模仿畫圓</td></tr>
-        <tr><td>🗣 語言社交</td><td><strong>2 歲應有 50 個詞以上、開始說句子</strong>；詞彙爆炸期（一天學好幾個新詞）；仿說大人語句</td></tr>
-        <tr><td>😴 睡眠</td><td>夜間 11–14 小時；白天 1 次小睡（部分寶寶開始不睡午覺）</td></tr>
-      </table>
-      <div class="callout info">
-        <strong>💡 語言發展遲緩警示</strong><br>
-        • 12 個月無任何詞彙 → 回診評估<br>
-        • 18 個月詞彙 &lt; 10 個 → 建議語言評估<br>
-        • 2 歲無法說兩個詞組合 → 盡快就醫<br>
-        早期介入效果最好，不要「等等看」。
-      </div>
-    </div>
-
   </div>
-
 
 </main>
 

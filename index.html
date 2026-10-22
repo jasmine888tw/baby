@@ -253,6 +253,12 @@
     .dn  { background: #dde3f0; color: #1e3460; } /* 睡眠 */
     .dev-note { font-size: 11px; color: #888; margin-top: 6px; padding-left: 4px; }
     .dev-section-title { font-size: 13px; font-weight: 700; color: #4a3a2e; margin: 20px 0 6px; }
+
+    .pri { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 700; white-space: nowrap; }
+    .pri-must  { background: #d4edda; color: #155724; }
+    .pri-rec   { background: #cfe2ff; color: #0a3d7a; }
+    .pri-opt   { background: #fff3cd; color: #664d03; }
+    .pri-no    { background: #f8d7da; color: #721c24; }
   </style>
 </head>
 <body>
@@ -279,6 +285,7 @@
     <button class="chip" onclick="setCategory('健康', this)">❤️ 健康</button>
   </div>
   <div class="tabs">
+    <button class="tab-btn" onclick="switchTab('list', this)">📋 採購清單</button>
     <button class="tab-btn active" onclick="switchTab('pre', this)">出生前</button>
     <button class="tab-btn" onclick="switchTab('m0', this)">0-2個月</button>
     <button class="tab-btn" onclick="switchTab('m2', this)">2-4個月</button>
@@ -421,6 +428,53 @@
         <div class="discussion-meta">wewee_skincare · <a href="https://www.threads.com/@emma_0416/post/DdVTlRqmkYn" target="_blank">Threads</a></div>
       </div>
     </div>
+    </div>
+  </div>
+
+  <!-- 採購清單 -->
+  <div id="tab-list" class="tab-content" data-label="採購清單">
+    <div class="section">
+      <h2>採購優先度總表</h2>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;font-size:12px;">
+        <span><span class="pri pri-must">必買</span> 沒有會很麻煩</span>
+        <span><span class="pri pri-rec">建議買</span> 大幅省力，值得</span>
+        <span><span class="pri pri-opt">視需求</span> 依個人情況</span>
+        <span><span class="pri pri-no">勿買</span> 雷品或危險</span>
+      </div>
+      <table class="period-table">
+        <tr><th>品項</th><th>優先度</th><th>購買時機</th><th>備註</th></tr>
+
+        <tr><td colspan="4" style="background:#f5f0eb;font-weight:700;font-size:12px;padding:6px 10px;">🍼 哺餵</td></tr>
+        <tr><td>貝親奶瓶奶嘴（玻璃 160ml + SS/S 號）</td><td><span class="pri pri-must">必買</span></td><td>出生前備妥</td><td>親餵也建議備著</td></tr>
+        <tr><td>哺乳枕（月亮枕二合一）</td><td><span class="pri pri-must">必買</span></td><td>出生前備妥</td><td>親餵媽媽必備</td></tr>
+        <tr><td>儲乳袋（貝睿/六甲村）</td><td><span class="pri pri-must">必買</span></td><td>出生前備妥</td><td>親餵擠乳必備</td></tr>
+        <tr><td>奇哥智能恆溫調乳器</td><td><span class="pri pri-rec">建議買</span></td><td>出生前備妥</td><td>配方奶必備；親餵可暫緩</td></tr>
+        <tr><td>配方奶（1號，先備 1 罐）</td><td><span class="pri pri-opt">視需求</span></td><td>出生後視情況</td><td>確認適應後再囤</td></tr>
+        <tr><td>Giaretti GT-BWHA01 調乳搖奶機</td><td><span class="pri pri-opt">視需求</span></td><td>—</td><td>搖奶需求強烈才考慮；品牌有爭議</td></tr>
+
+        <tr><td colspan="4" style="background:#f5f0eb;font-weight:700;font-size:12px;padding:6px 10px;">🛁 洗澡 & 清潔</td></tr>
+        <tr><td>洗屁屁浴架</td><td><span class="pri pri-must">必買</span></td><td>出生前備妥</td><td>解放雙手，降低媽媽手</td></tr>
+        <tr><td>月亮澡盆（含架）</td><td><span class="pri pri-rec">建議買</span></td><td>出生前備妥</td><td>可用至 9kg，CP 值高</td></tr>
+        <tr><td>洗碗機（奇美/聲寶，洗奶瓶用）</td><td><span class="pri pri-rec">建議買</span></td><td>出生後可再買</td><td>75°C + UV，比手洗乾淨</td></tr>
+        <tr><td>Giaretti CLOUD-2 洗奶瓶機</td><td><span class="pri pri-no">勿買</span></td><td>—</td><td>橡膠融化安全事件，社群避雷</td></tr>
+
+        <tr><td colspan="4" style="background:#f5f0eb;font-weight:700;font-size:12px;padding:6px 10px;">🛏 睡眠</td></tr>
+        <tr><td>床邊床</td><td><span class="pri pri-must">必買</span></td><td>出生前備妥</td><td>夜奶必備，省力安全</td></tr>
+        <tr><td>定型枕（6個月後才可用）</td><td><span class="pri pri-opt">視需求</span></td><td>4–6個月觀察後</td><td>6個月前有窒息風險，勿提早</td></tr>
+
+        <tr><td colspan="4" style="background:#f5f0eb;font-weight:700;font-size:12px;padding:6px 10px;">👕 衣物 & 尿布</td></tr>
+        <tr><td>新生兒衣物（內衣6–7件、外衣5–6件）</td><td><span class="pri pri-must">必買</span></td><td>出生前備妥</td><td>冬天出生多備厚款外衣</td></tr>
+        <tr><td>尿布台（Jolly）</td><td><span class="pri pri-rec">建議買</span></td><td>出生前備妥</td><td>站著換尿布，護腰</td></tr>
+        <tr><td>好市多保鮮膜（包尿布用）</td><td><span class="pri pri-rec">建議買</span></td><td>隨時</td><td>取代專用尿布桶，封臭省空間</td></tr>
+
+        <tr><td colspan="4" style="background:#f5f0eb;font-weight:700;font-size:12px;padding:6px 10px;">🎒 外出</td></tr>
+        <tr><td>折疊床媽咪包（二合一後背包）</td><td><span class="pri pri-rec">建議買</span></td><td>出生前備妥</td><td>外宿/長途旅行首選</td></tr>
+        <tr><td>單肩揹帶（MORI Haus）</td><td><span class="pri pri-opt">視需求</span></td><td>9個月後</td><td>短時間外出輔助用</td></tr>
+
+        <tr><td colspan="4" style="background:#f5f0eb;font-weight:700;font-size:12px;padding:6px 10px;">🎁 媽媽手冊禮</td></tr>
+        <tr><td>線上申請（芬蘭箱/亞尼活力/幫寶適等）</td><td><span class="pri pri-rec">建議買</span></td><td>產前盡早申請</td><td>免費，先搞定線上再到店</td></tr>
+        <tr><td>六甲村媽媽教室</td><td><span class="pri pri-rec">建議買</span></td><td>產前報名</td><td>免費，一袋試用品</td></tr>
+      </table>
     </div>
   </div>
 
@@ -582,7 +636,8 @@
       <h3>調乳器</h3>
       <div class="callout info" data-cat="用品">
         <strong>💡 兩台唯一差異：搖奶功能</strong>
-        不在意搖奶的話，奇哥口碑更穩、保溫更久、便宜三倍。
+        不在意搖奶的話，奇哥口碑更穩、保溫更久、便宜三倍。<br><br>
+        <strong>奇哥的標準泡奶流程：</strong>①奇哥出水（40–45°C）②先加水再加奶粉（氣泡較少）③用手掌夾住奶瓶<strong>左右滾動</strong> 10–15 秒（不要上下猛搖）④等 30 秒讓氣泡沉澱再餵。左右滾動比上下搖氣泡少很多，大多數寶寶夠用。
       </div>
 
       <h4>品牌比較</h4>
